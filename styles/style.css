@@ -6,7 +6,7 @@
   --pp-text:        #1e2d2a;
   --pp-muted:       #6b7b78;
   --pp-border:      #d4e3de;
-  --pp-bg:          #f4faf7;
+  --pp-bg:          #cedad4;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -93,7 +93,7 @@ main {
   background-size: 140%;
   background-position: 15% 185%;
   background-repeat: no-repeat;
-  background-color: #e8f0eb;
+  background-color: #d5e9dd;
   flex-shrink: 0;
 }
 
