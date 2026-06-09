@@ -30,6 +30,14 @@ function validateEmail(v) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 }
 
+function validateFullName(v) {
+  return /^[a-zA-Z\s]+$/.test(v) && v.length > 0;
+}
+
+function validatePhone(v) {
+  return /^[0-9]{10}$/.test(v);
+}
+
 form.addEventListener('submit', e => {
   e.preventDefault();
   let valid = true;
@@ -41,21 +49,33 @@ form.addEventListener('submit', e => {
   const cpass = document.getElementById('confirmPassword').value;
   const terms = document.getElementById('terms').checked;
 
-  // Name
-  if (!name) { setError('grp-name', true); valid = false; }
-  else          setError('grp-name', false);
+  // Name - only letters and spaces
+  if (!validateFullName(name)) {
+    setError('grp-name', true, 'Full Name must contain only letters and spaces.');
+    valid = false;
+  } else {
+    setError('grp-name', false);
+  }
 
   // Email
   if (!validateEmail(email)) { setError('grp-email', true); valid = false; }
   else                          setError('grp-email', false);
 
   // Phone
-  if (!/^[0-9]{9}$/.test(phone)) { setError('grp-phone', true); valid = false; }
-  else                              setError('grp-phone', false);
+  if (!validatePhone(phone)) {
+    setError('grp-phone', true, 'Phone number must contain exactly 10 digits.');
+    valid = false;
+  } else {
+    setError('grp-phone', false);
+  }
 
-  // Password
-  if (pass.length < 6) { setError('grp-pass', true); valid = false; }
-  else                    setError('grp-pass', false);
+  // Password - minimum 8 characters
+  if (pass.length < 8) {
+    setError('grp-pass', true, 'Password must be at least 8 characters.');
+    valid = false;
+  } else {
+    setError('grp-pass', false);
+  }
 
   // Confirm password
   if (pass !== cpass) {
@@ -99,3 +119,23 @@ form.addEventListener('submit', e => {
     setError(map[id], false);
   });
 });
+
+// Enforce numeric-only and max length for phone input
+const phoneInput = document.getElementById('phone');
+if (phoneInput) {
+  phoneInput.addEventListener('input', (e) => {
+    const cleaned = e.target.value.replace(/\D/g, '').slice(0, 10);
+    if (e.target.value !== cleaned) e.target.value = cleaned;
+    setError('grp-phone', false);
+  });
+}
+
+// Enforce letters and spaces only for Full Name input
+const fullNameInput = document.getElementById('fullName');
+if (fullNameInput) {
+  fullNameInput.addEventListener('input', (e) => {
+    const cleaned = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+    if (e.target.value !== cleaned) e.target.value = cleaned;
+    setError('grp-name', false);
+  });
+}
