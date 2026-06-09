@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PharmaPlus - Pharmacy Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles/style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="#">
+      <div class="brand-icon"><i class="bi bi-plus-lg"></i></div>
+      <div>
+        PharmaPlus
+        <span class="brand-sub">Pharmacy Management System</span>
+      </div>
+    </a>
+    <div class="nav-btns">
+      <button class="btn-login">Login</button>
+      <button class="btn-signup-nav">Sign up</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <div class="card-wrap">
+
+      <!-- LEFT PANEL -->
+      <div class="left-panel">
+        <div class="left-content">
+          <h2>Smart Pharmacy<br>Management<br><span class="highlight">Made Simple</span></h2>
+          <p class="tagline">Manage medicines, inventory, sales, suppliers and customers efficiently with our complete Pharmacy Management System.</p>
+
+          <div class="feature">
+            <div class="feature-icon"><i class="bi bi-capsule"></i></div>
+            <div class="feature-text">
+              <p class="ftitle">Medicine &amp; Inventory</p>
+              <p class="fdesc">Track stock, expiry dates and low stock alerts.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon"><i class="bi bi-receipt"></i></div>
+            <div class="feature-text">
+              <p class="ftitle">Sales &amp; Billing</p>
+              <p class="fdesc">Create invoices and manage daily sales.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon"><i class="bi bi-people"></i></div>
+            <div class="feature-text">
+              <p class="ftitle">Supplier &amp; Customer</p>
+              <p class="fdesc">Manage suppliers and customer records.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon"><i class="bi bi-bar-chart-line"></i></div>
+            <div class="feature-text">
+              <p class="ftitle">Reports &amp; Analytics</p>
+              <p class="fdesc">Get insights with detailed reports.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <h3>Create your account</h3>
+        <p class="sub">Fill in your details to get started.</p>
+
+        <form id="signupForm" novalidate autocomplete="off">
+
+          <div class="form-group" id="grp-name">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" class="form-control" placeholder="Kamal Perera"/>
+            <div class="err-msg">Please enter your full name.</div>
+          </div>
+
+          <div class="form-group" id="grp-email">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="you@gmail.com"/>
+            <div class="err-msg">Please enter a valid email address.</div>
+          </div>
+
+          <div class="form-group" id="grp-phone">
+            <label for="phone">Phone Number</label>
+            <div class="phone-group">
+              <span class="phone-prefix">+94</span>
+              <input type="tel" id="phone" class="form-control" placeholder="xxxxxxxxx"/>
+            </div>
+            <div class="err-msg">Enter a valid 9-digit phone number.</div>
+          </div>
+
+          <div class="form-group" id="grp-pass">
+            <label for="password">Password</label>
+            <div class="pass-wrap">
+              <input type="password" id="password" class="form-control" placeholder="••••••"/>
+              <button type="button" class="pass-toggle" data-target="password">
+                <i class="bi bi-eye-slash"></i>
+              </button>
+            </div>
+            <div class="err-msg">Password must be at least 6 characters.</div>
+          </div>
+
+          <div class="form-group" id="grp-cpass">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="pass-wrap">
+              <input type="password" id="confirmPassword" class="form-control" placeholder="••••••"/>
+              <button type="button" class="pass-toggle" data-target="confirmPassword">
+                <i class="bi bi-eye-slash"></i>
+              </button>
+            </div>
+            <div class="err-msg" id="cpass-err">Passwords do not match.</div>
+          </div>
+
+          <div class="check-row">
+            <input type="checkbox" id="terms"/>
+            <label for="terms">
+              I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">Sign up</button>
+        </form>
+
+        <div class="divider">OR</div>
+
+        <button class="btn-google" type="button">
+          <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#EA4335" d="M24 9.5c3.14 0 5.96 1.08 8.18 2.85l6.1-6.1C34.56 3.06 29.57 1 24 1 14.82 1 6.96 6.33 3.19 14.09l7.1 5.52C12.07 13.34 17.58 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.14 24.5c0-1.6-.14-3.13-.4-4.61H24v8.73h12.47c-.54 2.9-2.17 5.36-4.63 7.02l7.1 5.52C43.18 37.13 46.14 31.3 46.14 24.5z"/>
+            <path fill="#FBBC05" d="M10.29 28.39A14.46 14.46 0 0 1 9.5 24c0-1.52.26-3 .79-4.39l-7.1-5.52A23.94 23.94 0 0 0 0 24c0 3.87.93 7.53 2.57 10.78l7.72-6.39z"/>
+            <path fill="#34A853" d="M24 47c5.57 0 10.25-1.84 13.67-5l-7.1-5.52c-1.84 1.23-4.18 1.96-6.57 1.96-6.42 0-11.93-3.84-13.71-9.09l-7.72 6.39C6.96 41.67 14.82 47 24 47z"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <p class="login-link">Already have an account? <a href="#">Login</a></p>
+      </div>
+
+    </div>
+  </main>
+
+ <!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">EgoTECH World</div>
+    <div class="footer-tag">Developing ready made and custom solutions for modern challenges.</div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 egotechworld.com &nbsp;&middot;&nbsp; EGOTECHWORLD PVT LTD. All Rights Reserved.
+  </div>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
