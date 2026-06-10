@@ -46,8 +46,8 @@ form.addEventListener('submit', e => {
   }
 
   // Password
-  if (pass.length === 0) {
-    setError('grp-pass', true, 'Please enter your password.');
+  if (pass.length < 8) {
+    setError('grp-pass', true, 'Password must be at least 8 characters.');
     valid = false;
   } else {
     setError('grp-pass', false);

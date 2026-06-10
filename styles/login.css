@@ -94,8 +94,8 @@ main {
   position: relative;
   overflow: hidden;
   background-image: url('../images/Pharmacylogin.png');
-  background-size: 85%;
-  background-position: 50% 110%;
+  background-size: 110%;
+  background-position: 50% 400%;
   background-repeat: no-repeat;
   background-color: #deeae3;
   flex-shrink: 0;
