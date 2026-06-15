@@ -61,11 +61,8 @@ form.addEventListener('submit', e => {
   btn.style.background = '#145f49';
   btn.disabled = true;
   setTimeout(() => {
-    btn.textContent = 'Log In';
-    btn.style.background = '';
-    btn.disabled = false;
-    form.reset();
-  }, 2500);
+    window.location.href = 'dashboard.html';
+  }, 1200);
 });
 
 // Live clear errors

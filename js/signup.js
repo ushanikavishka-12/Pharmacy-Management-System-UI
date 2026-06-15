@@ -102,11 +102,8 @@ form.addEventListener('submit', e => {
   btn.style.background = '#145f49';
   btn.disabled = true;
   setTimeout(() => {
-    btn.textContent = 'Sign up';
-    btn.style.background = '';
-    btn.disabled = false;
-    form.reset();
-  }, 2500);
+    window.location.href = 'login.html';
+  }, 1200);
 });
 
 // Live clear errors on input
