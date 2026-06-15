@@ -12,7 +12,7 @@ new Chart(ctx, {
     datasets: [{
       label: 'Sales (Rs)',
       data: salesData.values,
-      backgroundColor: '#1f9d6e',
+      backgroundColor: '#136F5E',
       borderRadius: 4,
       maxBarThickness: 36
     }]
