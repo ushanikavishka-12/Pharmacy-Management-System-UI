@@ -4,25 +4,25 @@ Frontend UI for the **PharmaPlus Pharmacy Management System**, designed and deve
 
 ## Project Overview
 
-This project focuses on creating a modern, responsive, and user-friendly Pharmacy Management System interface using HTML, CSS, Bootstrap, and JavaScript.
+This project focuses on building a modern and responsive Pharmacy Management System user interface. The project currently includes authentication pages designed in Figma and implemented using HTML, CSS, Bootstrap, and JavaScript.
 
 ## Pages
 
-### 1. Sign Up Page
+### Sign Up Page
 
-* User registration form
-* Full name, email, phone number, and password fields
-* Password visibility toggle
-* Terms and Conditions agreement
-* Google Sign Up option
+* User Registration Form
+* Full Name, Email, Phone Number
+* Password & Confirm Password
+* Terms and Conditions Agreement
+* Google Sign Up Option
 
-### 2. Login Page
+### Login Page
 
-* User authentication form
-* Email and password fields
-* Remember Me option
-* Forgot Password link
-* Google Login option
+* User Login Form
+* Email and Password Authentication
+* Remember Me Option
+* Forgot Password Link
+* Google Login Option
 
 ## Technologies Used
 
@@ -35,7 +35,7 @@ This project focuses on creating a modern, responsive, and user-friendly Pharmac
 
 ## Features
 
-### Pharmacy System Features
+### Pharmacy Management Features
 
 * Medicine & Inventory Management
 * Sales & Billing Management
@@ -49,28 +49,34 @@ This project focuses on creating a modern, responsive, and user-friendly Pharmac
 * Modern Healthcare Theme
 * Clean User Interface
 * Form Validation
-* Password Show/Hide Functionality
+* Password Visibility Toggle
 * Reusable Components
 
 ## Project Structure
 
-```text
 pharmacy-management-system/
 │
-├── index.html
-├── login.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
 ├── images/
+│   ├── PharmacyBG.png
+│   └── Pharmacylogin.png
 │
+├── js/
+│   ├── login.js
+│   └── signup.js
+│
+├── styles/
+│   ├── login.css
+│   └── signup.css
+│
+├── login.html
+├── signup.html
 └── README.md
-```
+
 
 ## Company
 
 **EgoTECH World**
+
 Developing ready made and custom solutions for modern challenges.
 
 Website: https://egotechworld.com
@@ -82,6 +88,13 @@ EgoTECH World
 ## Developed By
 
 EgoTECH World Intern Team
+
+## Current Progress
+
+* ✅ Sign Up UI Design Completed
+* ✅ Sign Up Frontend Development Completed
+* ✅ Login UI Design Completed
+* ✅ Login Frontend Development Completed
 
 ---
 
