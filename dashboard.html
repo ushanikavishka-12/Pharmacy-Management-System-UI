@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PharmaPlus - Pharmacy Management System</title>
+<link rel="stylesheet" href="styles/dashboard.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-plus"></i></div>
+      <div class="logo-text">
+        <span class="logo-title">PharmaPlus</span>
+        <span class="logo-sub">Pharmacy Management System</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#" class="nav-item active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> POS &amp; Billing</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-file-invoice"></i> Purchases</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-truck-field"></i> Suppliers</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-users"></i> Customers</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-file-prescription"></i> Prescriptions</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-chart-column"></i> Reports</a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="sidebar-image">
+      <img src="sidebar-products3.png" alt="Pharmacy products">
+    </div>
+
+    <div class="sidebar-image">
+      <!--<img src="images/sidebar-products.png" alt="Pharmacy products"> -->
+    </div>
+  </aside> 
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <h1>Dashboard</h1>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search medicines, invoices, customers...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn"><i class="fa-regular fa-bell"></i></button>
+        <button class="icon-btn"><i class="fa-regular fa-moon"></i></button>
+        <div class="admin-chip">
+          <img src="https://i.pravatar.cc/40?img=12" alt="Admin">
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- KPI Cards -->
+    <section class="kpi-row">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-top">
+          <span class="kpi-label"><i class="fa-solid fa-wallet"></i> TODAY'S SALES</span>
+        </div>
+        <div class="kpi-value">Rs 85,230</div>
+        <div class="kpi-bottom">
+          <span class="kpi-change up"><i class="fa-solid fa-arrow-up"></i> +12.5% vs yesterday</span>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-orange">
+        <div class="kpi-top">
+          <span class="kpi-label"><i class="fa-solid fa-calendar-days"></i> ITEMS EXPIRING SOON</span>
+        </div>
+        <div class="kpi-value">15</div>
+        <div class="kpi-bottom">
+          <a href="#" class="kpi-link">View Items <i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-yellow">
+        <div class="kpi-top">
+          <span class="kpi-label"><i class="fa-solid fa-box"></i> TODAY'S SALES</span>
+        </div>
+        <div class="kpi-value">28</div>
+        <div class="kpi-bottom">
+          <a href="#" class="kpi-link">View Items <i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-blue">
+        <div class="kpi-top">
+          <span class="kpi-label"><i class="fa-solid fa-file-invoice-dollar"></i> TOTAL INVOICES</span>
+        </div>
+        <div class="kpi-value">124</div>
+        <div class="kpi-bottom">
+          <a href="#" class="kpi-link">View all <i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts Row -->
+    <section class="charts-row">
+      <div class="card sales-overview">
+        <div class="card-header">
+          <h2>Sales Overview</h2>
+          <select class="period-select">
+            <option>This Month</option>
+            <option>Last Month</option>
+            <option>This Year</option>
+          </select>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card inventory-summary">
+        <div class="card-header">
+          <h2>Inventory Summary</h2>
+        </div>
+        <ul class="summary-list">
+          <li>
+            <span class="summary-icon icon-green"><i class="fa-solid fa-pills"></i></span>
+            <span class="summary-text">Available Medicines</span>
+            <span class="summary-value text-green">1,450</span>
+          </li>
+          <li>
+            <span class="summary-icon icon-yellow"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="summary-text">Low Stock Items</span>
+            <span class="summary-value text-yellow">28</span>
+          </li>
+          <li>
+            <span class="summary-icon icon-red"><i class="fa-solid fa-calendar-xmark"></i></span>
+            <span class="summary-text">Expired Items</span>
+            <span class="summary-value text-red">15</span>
+          </li>
+          <li>
+            <span class="summary-icon icon-navy"><i class="fa-solid fa-circle-xmark"></i></span>
+            <span class="summary-text">Out of Stock Items</span>
+            <span class="summary-value text-navy">05</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Tables Row -->
+    <section class="tables-row">
+      <div class="card transactions">
+        <div class="card-header">
+          <h2>Recent Transactions</h2>
+          <a href="#" class="view-all">View all transactions &gt;</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice ID</th>
+              <th>Customer Name</th>
+              <th>Date &amp; Time</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsBody">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card top-selling">
+        <div class="card-header">
+          <h2>Top Selling Medicines</h2>
+          <a href="#" class="view-all">View All</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Medicine</th>
+              <th class="align-right">Unit Sold</th>
+            </tr>
+          </thead>
+          <tbody id="topSellingBody">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <button class="qa-btn"><span class="qa-icon qa-green"><i class="fa-solid fa-plus"></i></span> Add Medicine</button>
+      <button class="qa-btn"><span class="qa-icon qa-blue"><i class="fa-solid fa-cart-shopping"></i></span> New Sale</button>
+      <button class="qa-btn"><span class="qa-icon qa-orange"><i class="fa-solid fa-clipboard-list"></i></span> Purchase Order</button>
+      <button class="qa-btn"><span class="qa-icon qa-teal"><i class="fa-solid fa-user-plus"></i></span> Add Supplier</button>
+      <button class="qa-btn"><span class="qa-icon qa-purple"><i class="fa-solid fa-chart-line"></i></span> View Reports</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-main">
+        <strong>EgoTECH World</strong>
+        <span>Developing ready made and custom solutions for modern challenges.</span>
+      </div>
+      <div class="footer-bottom">
+        © 2026 egotechworld.com - EGOTECHWORLD PVT LTD. All Rights Reserved.
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
