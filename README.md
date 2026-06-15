@@ -4,7 +4,7 @@ Frontend UI for the **PharmaPlus Pharmacy Management System**, designed and deve
 
 ## Project Overview
 
-This project focuses on building a modern and responsive Pharmacy Management System user interface. The project currently includes authentication pages designed in Figma and implemented using HTML, CSS, Bootstrap, and JavaScript.
+This project focuses on building a modern and responsive Pharmacy Management System user interface. The system includes authentication pages and an admin dashboard designed in Figma and implemented using HTML, CSS, Bootstrap, and JavaScript.
 
 ## Pages
 
@@ -24,6 +24,18 @@ This project focuses on building a modern and responsive Pharmacy Management Sys
 * Forgot Password Link
 * Google Login Option
 
+### Admin Dashboard
+
+* Dashboard Overview
+* Sales Statistics Cards
+* Inventory Summary
+* Recent Transactions
+* Top Selling Medicines
+* Quick Action Buttons
+* Sidebar Navigation Menu
+* Search Functionality
+* Notification & Profile Section
+
 ## Technologies Used
 
 * Figma (UI/UX Design)
@@ -37,10 +49,12 @@ This project focuses on building a modern and responsive Pharmacy Management Sys
 
 ### Pharmacy Management Features
 
+* Dashboard Management
 * Medicine & Inventory Management
-* Sales & Billing Management
+* POS & Billing Management
 * Supplier Management
 * Customer Management
+* Prescription Management
 * Reports & Analytics
 
 ### UI Features
@@ -50,28 +64,34 @@ This project focuses on building a modern and responsive Pharmacy Management Sys
 * Clean User Interface
 * Form Validation
 * Password Visibility Toggle
+* Interactive Dashboard Components
 * Reusable Components
 
 ## Project Structure
 
+```text
 pharmacy-management-system/
 │
 ├── images/
+    ├── pharmacy.png
 │   ├── PharmacyBG.png
 │   └── Pharmacylogin.png
 │
 ├── js/
 │   ├── login.js
-│   └── signup.js
+│   ├── signup.js
+│   └── dashboard.js
 │
 ├── styles/
 │   ├── login.css
-│   └── signup.css
+│   ├── signup.css
+│   └── dashboard.css
 │
 ├── login.html
 ├── signup.html
+├── dashboard.html
 └── README.md
-
+```
 
 ## Company
 
@@ -95,7 +115,9 @@ EgoTECH World Intern Team
 * ✅ Sign Up Frontend Development Completed
 * ✅ Login UI Design Completed
 * ✅ Login Frontend Development Completed
+* ✅ Admin Dashboard UI Design Completed
+* ✅ Admin Dashboard Frontend Development Completed
 
----
+
 
 © 2026 EGOTECHWORLD PVT LTD. All Rights Reserved.
