@@ -13,7 +13,7 @@ const SIDEBAR_HTML = `
     <a href="dashboard.html" class="nav-item" data-page="dashboard">
       <i class="fa-solid fa-table-columns"></i> Dashboard
     </a>
-    <a href="pos.html" class="nav-item" data-page="pos">
+    <a href="pos&billing.html" class="nav-item" data-page="pos&billing">
       <i class="fa-solid fa-cart-shopping"></i> POS &amp; Billing
     </a>
     <a href="inventory.html" class="nav-item" data-page="inventory">

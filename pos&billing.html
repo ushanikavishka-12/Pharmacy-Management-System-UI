@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PharmaPlus - POS & Billing</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <!-- Shared CSS for sidebar, topbar, footer -->
+  <link rel="stylesheet" href="styles/components.css">
+  
+  <link rel="stylesheet" href="styles/pos&billing.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body data-page="pos&billing" data-title="POS & Billing">
+<div class="app">
+  <div id="sidebar-placeholder"></div>
+  <div class="main">
+    <div id="topbar-placeholder"></div>
+
+  <!-- CONTENT GRID -->
+  <div class="content-grid">
+
+    <!-- LEFT: BROWSE + QUICK ACTIONS -->
+    <div class="left-panel">
+
+      <!-- Browse Medicines -->
+      <section class="card browse-section">
+        <h2>Browse Medicines</h2>
+        <div class="filter-tabs">
+          <button class="tab active">All</button>
+          <button class="tab">OTC</button>
+          <button class="tab">Pain Relief</button>
+          <button class="tab">Vitamins</button>
+          <button class="tab">Antibiotics</button>
+          <button class="tab">Cough &amp; Cold</button>
+          <button class="tab">More <i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+        <div class="medicine-grid" id="medicineGrid"></div>
+        <button class="view-more-btn" id="viewMoreBtn">View More Products <i class="fa-solid fa-chevron-down"></i></button>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="card quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="actions-grid">
+          <button class="action-btn hold"><i class="fa-solid fa-pause-circle"></i> Hold Bill</button>
+          <button class="action-btn recent"><i class="fa-solid fa-clock-rotate-left"></i> Recent Bill</button>
+          <button class="action-btn add-cust"><i class="fa-solid fa-user-plus"></i> Add Customer</button>
+          <button class="action-btn walkin"><i class="fa-solid fa-person-walking"></i> Walk-in Customer</button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT: BILLING PANEL -->
+    <div class="right-panel">
+
+      <!-- Current Bill -->
+      <section class="card bill-section">
+        <div class="bill-header">
+          <h2>Current Bill</h2>
+          <button class="clear-btn" id="clearAllBtn"><i class="fa-solid fa-trash"></i> Clear All</button>
+        </div>
+        <table class="bill-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="billTableBody"></tbody>
+        </table>
+
+        <!-- Promo Code -->
+        <div class="promo-row">
+          <div class="promo-icon"><i class="fa-solid fa-tag"></i></div>
+          <input type="text" id="promoInput" placeholder="Enter Promo Code" />
+          <button class="apply-btn" id="applyPromo">Apply</button>
+        </div>
+
+        <!-- Totals -->
+        <div class="bill-summary">
+          <div class="summary-row"><span>Sub Total (<span id="itemCount">0</span> Items)</span><span id="subTotal">Rs.0.00</span></div>
+          <div class="summary-row"><span>Discount</span><span id="discountDisplay">5%</span></div>
+          <div class="summary-row"><span>Tax (0%)</span><span>0</span></div>
+          <div class="summary-row grand"><span>Grand Total</span><span id="grandTotal">Rs.0.00</span></div>
+        </div>
+
+        <!-- Buttons -->
+        <button class="checkout-btn" id="checkoutBtn"><i class="fa-solid fa-print"></i> Print &amp; Checkout</button>
+        <button class="draft-btn" id="draftBtn"><i class="fa-regular fa-floppy-disk"></i> Save as Draft</button>
+      </section>
+
+      <!-- Customer Search -->
+      <section class="card customer-section">
+        <h2>Customer</h2>
+        <div class="customer-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search Customer by name or phone..." id="customerSearch"/>
+          <button class="new-btn"><i class="fa-solid fa-plus"></i> New</button>
+        </div>
+        <div id="selectedCustomer" class="selected-customer" style="display:none;"></div>
+      </section>
+
+      <!-- Payment -->
+      <section class="card payment-section">
+        <h2>Payment</h2>
+        <div class="payment-grid">
+          <div class="payment-row">
+            <label>Reserved</label>
+            <input type="text" id="reservedAmt" readonly />
+          </div>
+          <div class="payment-row">
+            <label>Change</label>
+            <input type="text" id="changeAmt" value="Rs.0" readonly />
+          </div>
+        </div>
+        <div class="payment-methods">
+          <button class="pay-btn active" data-method="cash"><i class="fa-solid fa-money-bill-wave"></i> Cash</button>
+          <button class="pay-btn" data-method="card"><i class="fa-solid fa-credit-card"></i> Card</button>
+          <button class="pay-btn" data-method="upi"><i class="fa-solid fa-qrcode"></i> UPI</button>
+        </div>
+      </section>
+      </div>
+    
+  </div>
+
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="js/components.js"></script> 
+  <script src="js/pos&billing.js"></script>
+
+</body>
+</html>
