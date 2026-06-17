@@ -1,13 +1,23 @@
-// ── Load HTML component into a placeholder element ──
-async function loadComponent(selector, filePath) {
-  try {
-    const res = await fetch(filePath);
-    if (!res.ok) throw new Error(`Failed to load ${filePath}`);
-    const html = await res.text();
-    document.querySelector(selector).innerHTML = html;
-  } catch (err) {
-    console.error(err);
-  }
+// ── Load HTML component (works with file:// protocol) ──
+function loadComponent(selector, filePath) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', filePath, true);
+    xhr.onload = function () {
+      if (xhr.status === 200 || xhr.status === 0) {
+        // status 0 = file:// protocol success
+        const el = document.querySelector(selector);
+        if (el) el.innerHTML = xhr.responseText;
+        resolve();
+      } else {
+        reject(new Error(`Failed to load ${filePath}`));
+      }
+    };
+    xhr.onerror = function () {
+      reject(new Error(`Network error loading ${filePath}`));
+    };
+    xhr.send();
+  });
 }
 
 // ── Set active nav item based on current page ──
