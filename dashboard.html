@@ -1,65 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PharmaPlus - Pharmacy Management System</title>
-<link rel="stylesheet" href="styles/dashboard.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Dashboard</title>
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <!-- Shared CSS for sidebar, topbar, footer -->
+  <link rel="stylesheet" href="styles/components.css">
+
+  <!-- Dashboard only CSS -->
+  <link rel="stylesheet" href="styles/dashboard.css">
 </head>
-<body>
+
+<!-- data-page matches sidebar nav-item data-page -->
+<!-- data-title sets the topbar heading -->
+<body data-page="dashboard" data-title="Dashboard">
 <div class="app">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo">
-      <div class="logo-icon"><i class="fa-solid fa-plus"></i></div>
-      <div class="logo-text">
-        <span class="logo-title">PharmaPlus</span>
-        <span class="logo-sub">Pharmacy Management System</span>
-      </div>
-    </div>
-
-    <nav class="nav">
-      <a href="#" class="nav-item active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> POS &amp; Billing</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Inventory</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-file-invoice"></i> Purchases</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-truck-field"></i> Suppliers</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-users"></i> Customers</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-file-prescription"></i> Prescriptions</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-chart-column"></i> Reports</a>
-      <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
-    </nav>
-
-    <div class="sidebar-image">
-      <img src="images/pharmacy.png" alt="Pharmacy products">
-    </div>
-
-    <div class="sidebar-image">
-      <!--<img src="images/sidebar-products.png" alt="Pharmacy products"> -->
-    </div>
-  </aside> 
+  <!-- Sidebar placeholder -->
+  <div id="sidebar-placeholder"></div>
 
   <!-- Main -->
   <div class="main">
 
-    <!-- Topbar -->
-    <header class="topbar">
-      <h1>Dashboard</h1>
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Search medicines, invoices, customers...">
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn"><i class="fa-regular fa-bell"></i></button>
-        <button class="icon-btn"><i class="fa-regular fa-moon"></i></button>
-        <div class="admin-chip">
-          <img src="https://i.pravatar.cc/40?img=12" alt="Admin">
-          <span>Admin</span>
-        </div>
-      </div>
-    </header>
+    <!-- Topbar placeholder -->
+    <div id="topbar-placeholder"></div>
 
     <!-- KPI Cards -->
     <section class="kpi-row">
@@ -85,7 +53,7 @@
 
       <div class="kpi-card kpi-yellow">
         <div class="kpi-top">
-          <span class="kpi-label"><i class="fa-solid fa-box"></i> TODAY'S SALES</span>
+          <span class="kpi-label"><i class="fa-solid fa-box"></i> LOW STOCK ITEMS</span>
         </div>
         <div class="kpi-value">28</div>
         <div class="kpi-bottom">
@@ -166,9 +134,7 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody id="transactionsBody">
-            <!-- rows injected by JS -->
-          </tbody>
+          <tbody id="transactionsBody"></tbody>
         </table>
       </div>
 
@@ -184,9 +150,7 @@
               <th class="align-right">Unit Sold</th>
             </tr>
           </thead>
-          <tbody id="topSellingBody">
-            <!-- rows injected by JS -->
-          </tbody>
+          <tbody id="topSellingBody"></tbody>
         </table>
       </div>
     </section>
@@ -200,82 +164,14 @@
       <button class="qa-btn"><span class="qa-icon qa-purple"><i class="fa-solid fa-chart-line"></i></span> View Reports</button>
     </section>
 
-    <!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-content">
-
-    <!-- Brand -->
-    <div class="footer-brand-col">
-      <div class="footer-brand-name">EgoTECH World</div>
-      <p class="footer-brand-desc">Developing ready made and custom solutions for modern challenges.</p>
-    </div>
-
-    <!-- Navigation -->
-    <div class="footer-nav-col">
-      <h5 class="footer-col-title">Navigation</h5>
-      <div class="footer-links-grid">
-        <div class="footer-links-col">
-          <a href="#">Home</a>
-          <a href="#">Job</a>
-          <a href="#">Services</a>
-        </div>
-        <div class="footer-links-col">
-          <a href="#">Projects</a>
-          <a href="#">Contact</a>
-          <a href="#">About</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Divider -->
-    <div class="footer-divider-v"></div>
-
-    <!-- Resources -->
-    <div class="footer-nav-col">
-      <h5 class="footer-col-title">Resources</h5>
-      <div class="footer-links-grid">
-        <div class="footer-links-col">
-          <a href="#">Documentation</a>
-          <a href="#">Pricing</a>
-          <a href="#">Support</a>
-        </div>
-        <div class="footer-links-col">
-          <a href="#">Privacy &amp; Policy</a>
-          <a href="#">Terms &amp; Conditions</a>
-          <a href="#">Contact Us</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Divider -->
-    <div class="footer-divider-v"></div>
-
-    <!-- Stay Connected -->
-    <div class="footer-social-col">
-      <h5 class="footer-col-title">Stay Connected</h5>
-      <div class="footer-social-icons">
-        <a href="#" class="social-icon facebook" aria-label="Facebook">
-            <i class="fa-brands fa-facebook-f"></i>
-        </a>
-        <a href="#" class="social-icon linkedin" aria-label="LinkedIn">
-            <i class="fa-brands fa-linkedin-in"></i>
-        </a>
-      </div>
-      <p class="footer-follow">Follow Us</p>
-    </div>
-
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="footer-bottom">
-    &copy; 2026 egotechworld.com &nbsp;&ndash;&nbsp; EGOTECHWORLD PVT LTD. All Rights Reserved.
-  </div>
-</footer>
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
 
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/components.js"></script>
 <script src="js/dashboard.js"></script>
 </body>
 </html>

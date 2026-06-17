@@ -91,9 +91,3 @@ topSelling.forEach(med => {
   topSellingBody.appendChild(row);
 });
 
-// ---------- Quick Action buttons (demo alerts) ----------
-document.querySelectorAll('.qa-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    alert(btn.textContent.trim() + ' clicked');
-  });
-});
