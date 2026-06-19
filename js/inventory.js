@@ -69,6 +69,11 @@ const statusFilter = document.getElementById('statusFilter');
 const resultsText = document.getElementById('resultsText');
 const resetBtn = document.getElementById('resetBtn');
 const selectAll = document.getElementById('selectAll');
+const importBtn = document.getElementById('importBtn');
+const importFileInput = document.getElementById('importFileInput');
+
+// Set this to your real backend endpoint when available.
+const IMPORT_UPLOAD_ENDPOINT = '';
 
 // ── Status badge class + text mapping ──
 function getStatusBadge(status) {
@@ -262,7 +267,6 @@ resetBtn.addEventListener('click', () => {
   searchInput.value = '';
   categoryFilter.value = '';
   statusFilter.value = '';
-  document.getElementById('supplierFilter').value = '';
   renderInventory(medicines);
 });
 
@@ -407,8 +411,55 @@ medicineForm.addEventListener('submit', (e) => {
   applyFilters();
 });
 
-document.getElementById('importBtn').addEventListener('click', () => {
-  alert('Import clicked — open your import dialog here.');
+importBtn.addEventListener('click', () => {
+  importFileInput.click();
+});
+
+async function uploadImportFile(file) {
+  if (!IMPORT_UPLOAD_ENDPOINT) {
+    alert(`Selected file: ${file.name}\n\nUpload endpoint is not configured yet.`);
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(IMPORT_UPLOAD_ENDPOINT, {
+    method: 'POST',
+    body: formData
+  });
+
+  if (!response.ok) {
+    throw new Error(`Upload failed (${response.status})`);
+  }
+}
+
+importFileInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const maxSizeMB = 10;
+  const maxBytes = maxSizeMB * 1024 * 1024;
+  if (file.size > maxBytes) {
+    alert(`File is too large. Maximum allowed size is ${maxSizeMB}MB.`);
+    importFileInput.value = '';
+    return;
+  }
+
+  const originalLabel = importBtn.innerHTML;
+  importBtn.disabled = true;
+  importBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading...';
+
+  try {
+    await uploadImportFile(file);
+    alert(`File uploaded: ${file.name}`);
+  } catch (error) {
+    alert(`Could not upload file. ${error.message}`);
+  } finally {
+    importBtn.disabled = false;
+    importBtn.innerHTML = originalLabel;
+    importFileInput.value = '';
+  }
 });
 
 // ── Initial render ──

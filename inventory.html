@@ -92,6 +92,12 @@
             <button class="btn-outline" id="importBtn">
               <i class="fa-solid fa-upload"></i> Import
             </button>
+            <input
+              type="file"
+              id="importFileInput"
+              accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.doc,.docx,.txt,.csv,.xls,.xlsx"
+              hidden
+            >
           </div>
         </div>
 
@@ -110,13 +116,6 @@
             <option value="Cold & Cough">Cold &amp; Cough</option>
             <option value="Antibiotics">Antibiotics</option>
             <option value="Vitamins">Vitamins</option>
-          </select>
-
-          <select class="filter-select" id="supplierFilter">
-            <option value="">All Suppliers</option>
-            <option value="Supplier A">Supplier A</option>
-            <option value="Supplier B">Supplier B</option>
-            <option value="Supplier C">Supplier C</option>
           </select>
 
           <select class="filter-select" id="statusFilter">
