@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Inventory</title>
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <!-- Shared CSS for sidebar, topbar, footer -->
+  <link rel="stylesheet" href="styles/components.css">
+
+  <!-- Inventory only CSS -->
+  <link rel="stylesheet" href="styles/inventory.css">
+</head>
+
+<body data-page="inventory" data-title="Inventory">
+<div class="app">
+
+  <!-- Sidebar placeholder -->
+  <div id="sidebar-placeholder"></div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Topbar placeholder -->
+    <div id="topbar-placeholder"></div>
+
+    <div class="page-content">
+
+      <!-- Page subtitle -->
+      <p class="page-subtitle">Manage your medicine stock and inventory</p>
+
+      <!-- KPI Cards -->
+      <section class="kpi-row">
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon"><i class="fa-solid fa-suitcase-medical"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Medicines</p>
+            <h3 class="kpi-value" id="kpiTotal">356</h3>
+            <span class="kpi-sub">All medicines</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-navy">
+          <div class="kpi-icon"><i class="fa-solid fa-box-archive"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">In Stock</p>
+            <h3 class="kpi-value" id="kpiInStock">286</h3>
+            <span class="kpi-sub">Sufficient Stock</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-yellow">
+          <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Low Stock</p>
+            <h3 class="kpi-value" id="kpiLowStock">38</h3>
+            <span class="kpi-sub">Needs Attention</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-red">
+          <div class="kpi-icon"><i class="fa-solid fa-box-open"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Out of Stock</p>
+            <h3 class="kpi-value" id="kpiOutStock">38</h3>
+            <span class="kpi-sub">Unavailable</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Expiring Soon</p>
+            <h3 class="kpi-value" id="kpiExpiring">24</h3>
+            <span class="kpi-sub">In next 60 days</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inventory Table Card -->
+      <div class="card inventory-card">
+
+        <div class="inventory-card-header">
+          <h2>Medicine Inventory</h2>
+          <div class="header-actions">
+            <button class="btn-primary" id="addMedicineBtn">
+              <i class="fa-solid fa-plus"></i> Add Medicine
+            </button>
+            <button class="btn-outline" id="importBtn">
+              <i class="fa-solid fa-upload"></i> Import
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-row">
+          <div class="search-box-inv">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search Medicines...">
+          </div>
+
+          <select class="filter-select" id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="Pain Relief">Pain Relief</option>
+            <option value="Gastrointestinal">Gastrointestinal</option>
+            <option value="Antihistamine">Antihistamine</option>
+            <option value="Cold & Cough">Cold &amp; Cough</option>
+            <option value="Antibiotics">Antibiotics</option>
+            <option value="Vitamins">Vitamins</option>
+          </select>
+
+          <select class="filter-select" id="supplierFilter">
+            <option value="">All Suppliers</option>
+            <option value="Supplier A">Supplier A</option>
+            <option value="Supplier B">Supplier B</option>
+            <option value="Supplier C">Supplier C</option>
+          </select>
+
+          <select class="filter-select" id="statusFilter">
+            <option value="">All Status</option>
+            <option value="In stock">In stock</option>
+            <option value="Low Stock">Low Stock</option>
+            <option value="Out Of stock">Out Of stock</option>
+          </select>
+
+          <button class="btn-outline filters-btn">
+            <i class="fa-solid fa-sliders"></i> Filters
+          </button>
+
+          <button class="btn-reset" id="resetBtn">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap">
+          <table class="inv-table">
+            <thead>
+              <tr>
+                <th class="checkbox-col"><input type="checkbox" id="selectAll"></th>
+                <th>Medicine Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-row">
+          <span class="results-text" id="resultsText">Showing 1 to 6 results</span>
+          <div class="pagination">
+            <button class="page-btn" id="prevPage"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn" id="nextPage"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+<!-- Add / Edit Medicine Modal -->
+<div class="modal-overlay" id="addMedicineModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New Medicine</h3>
+      <button class="modal-close" id="closeModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="medicineForm" class="modal-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="medName">Medicine Name *</label>
+          <input type="text" id="medName" placeholder="e.g. Paracetamol 500mg" required>
+        </div>
+        <div class="form-group">
+          <label for="medForm">Form *</label>
+          <select id="medForm" required>
+            <option value="">Select form</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Capsule">Capsule</option>
+            <option value="Syrup">Syrup</option>
+            <option value="Injection">Injection</option>
+            <option value="Ointment">Ointment</option>
+            <option value="Drops">Drops</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="medCategory">Category *</label>
+          <select id="medCategory" required>
+            <option value="">Select category</option>
+            <option value="Pain Relief">Pain Relief</option>
+            <option value="Gastrointestinal">Gastrointestinal</option>
+            <option value="Antihistamine">Antihistamine</option>
+            <option value="Cold & Cough">Cold &amp; Cough</option>
+            <option value="Antibiotics">Antibiotics</option>
+            <option value="Vitamins">Vitamins</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="medStock">Stock Quantity *</label>
+          <input type="number" id="medStock" min="0" placeholder="e.g. 100" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="medExpiry">Expiry Date *</label>
+          <input type="month" id="medExpiry" required>
+        </div>
+        <div class="form-group">
+          <label for="medPrice">Unit Price (Rs.)</label>
+          <input type="number" id="medPrice" min="0" step="0.01" placeholder="e.g. 250.00">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="medImage">Medicine Image URL</label>
+        <input type="text" id="medImage" placeholder="images/medicine-name.jpg">
+      </div>
+
+      <div class="form-group">
+        <label for="medNotes">Notes (optional)</label>
+        <textarea id="medNotes" rows="2" placeholder="Any additional notes..."></textarea>
+      </div>
+
+      <input type="hidden" id="editIndex" value="">
+
+      <div class="modal-actions">
+        <button type="button" class="btn-outline" id="cancelModalBtn">Cancel</button>
+        <button type="submit" class="btn-primary" id="saveMedicineBtn">
+          <i class="fa-solid fa-check"></i> Save Medicine
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<script src="js/components.js"></script>
+<script src="js/inventory.js"></script>
+</body>
+</html>
