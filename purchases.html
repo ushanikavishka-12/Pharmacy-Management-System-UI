@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Purchases</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/purchases.css">
+</head>
+
+<body data-page="purchases" data-title="Purchases">
+<div class="app">
+
+  <div id="sidebar-placeholder"></div>
+
+  <div class="main">
+
+    <div id="topbar-placeholder"></div>
+
+    <div class="page-content">
+
+      <p class="page-subtitle">Manage purchase orders and supplier transactions</p>
+
+      <!-- KPI Cards -->
+      <section class="kpi-row">
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Orders</p>
+            <h3 class="kpi-value">24</h3>
+            <span class="kpi-change up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Spent</p>
+            <h3 class="kpi-value">280,906</h3>
+            <span class="kpi-change up"><i class="fa-solid fa-arrow-up"></i> 8%</span>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-navy">
+          <div class="kpi-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Pending Orders</p>
+            <h3 class="kpi-value">6</h3>
+            <span class="kpi-sub">To be Received</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-yellow">
+          <div class="kpi-icon"><i class="fa-solid fa-truck"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Received Orders</p>
+            <h3 class="kpi-value">23</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-red">
+          <div class="kpi-icon"><i class="fa-solid fa-rectangle-xmark"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Cancelled Orders</p>
+            <h3 class="kpi-value">0</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Main content: table + sidebar -->
+      <div class="purchases-layout">
+
+        <!-- Purchase Orders Table Card -->
+        <div class="card purchases-card">
+
+          <div class="purchases-card-header">
+            <h2>Purchase Orders</h2>
+            <div class="header-actions">
+              <button class="btn-primary" id="newOrderBtn">
+                <i class="fa-solid fa-plus"></i> New Purchase Order
+              </button>
+              <button class="btn-outline" id="importBtn">
+                <i class="fa-solid fa-upload"></i> Import
+              </button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filters-row">
+            <div class="date-range-box">
+              <span>Select Date Range</span>
+              <i class="fa-regular fa-calendar"></i>
+            </div>
+
+            <select class="filter-select" id="supplierFilter">
+              <option value="">All Suppliers</option>
+              <option value="T.K.D. Silva">T.K.D. Silva</option>
+              <option value="L.D.Manoj">L.D.Manoj</option>
+              <option value="D.M. Palitha">D.M. Palitha</option>
+              <option value="R.S.D.Dias">R.S.D.Dias</option>
+              <option value="S.K.N.Sujatha">S.K.N.Sujatha</option>
+              <option value="C.P.H.Mala">C.P.H.Mala</option>
+            </select>
+
+            <select class="filter-select" id="statusFilter">
+              <option value="">All Status</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Received">Received</option>
+              <option value="Pending">Pending</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+
+            <button class="btn-outline filters-btn">
+              <i class="fa-solid fa-sliders"></i> Filters
+            </button>
+          </div>
+
+          <!-- Table -->
+          <div class="table-wrap">
+            <table class="pur-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Supplier</th>
+                  <th>Order Date</th>
+                  <th>Expected Delivery</th>
+                  <th>Total Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="purchasesBody">
+                <!-- rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-row">
+            <span class="results-text" id="resultsText">Showing 1 to 6 results</span>
+            <div class="pagination">
+              <button class="page-btn" id="prevPage"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" id="nextPage"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Sidebar Panel -->
+        <div class="right-panel">
+
+          <!-- Quick Actions -->
+          <div class="card right-card">
+            <h4 class="right-card-title">Quick Actions</h4>
+            <div class="quick-action-list">
+              <button class="quick-action-btn qa-green" id="qaNewOrder">
+                <div class="qa-icon qa-icon-green"><i class="fa-solid fa-plus"></i></div>
+                <div class="qa-info">
+                  <span class="qa-title">New Purchase Order</span>
+                  <span class="qa-desc">Create a new purchase order</span>
+                </div>
+              </button>
+              <button class="quick-action-btn" id="qaAddSupplier">
+                <div class="qa-icon qa-icon-purple"><i class="fa-solid fa-user-plus"></i></div>
+                <div class="qa-info">
+                  <span class="qa-title">Add Supplier</span>
+                  <span class="qa-desc">Add a new supplier</span>
+                </div>
+              </button>
+              <button class="quick-action-btn" id="qaImport">
+                <div class="qa-icon qa-icon-blue"><i class="fa-solid fa-file-import"></i></div>
+                <div class="qa-info">
+                  <span class="qa-title">Import Purchase</span>
+                  <span class="qa-desc">Import purchase from Excel</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Suppliers -->
+          <div class="card right-card">
+            <div class="right-card-header">
+              <h4 class="right-card-title">Recent Suppliers</h4>
+              <button class="icon-text-btn"><i class="fa-solid fa-list"></i></button>
+            </div>
+            <div class="supplier-list">
+              <div class="supplier-item">
+                <div class="supplier-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="supplier-info">
+                  <p class="supplier-name">Hemas Pharmacy</p>
+                  <p class="supplier-phone">071 935 4588</p>
+                </div>
+              </div>
+              <div class="supplier-item">
+                <div class="supplier-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="supplier-info">
+                  <p class="supplier-name">Neeroga Pharmacy</p>
+                  <p class="supplier-phone">071 456 4993</p>
+                </div>
+              </div>
+              <div class="supplier-item">
+                <div class="supplier-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="supplier-info">
+                  <p class="supplier-name">Thusitha Pharmacy</p>
+                  <p class="supplier-phone">077 237 0098</p>
+                </div>
+              </div>
+              <div class="supplier-item">
+                <div class="supplier-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="supplier-info">
+                  <p class="supplier-name">Opsara Pharmacy</p>
+                  <p class="supplier-phone">076 190 3443</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+<!-- New Purchase Order Modal -->
+<div class="modal-overlay" id="newOrderModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 id="modalTitle">New Purchase Order</h3>
+      <button class="modal-close" id="closeModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="orderForm" class="modal-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="orderId">Order ID</label>
+          <input type="text" id="orderId" placeholder="Auto-generated" readonly>
+        </div>
+        <div class="form-group">
+          <label for="orderSupplier">Supplier *</label>
+          <select id="orderSupplier" required>
+            <option value="">Select supplier</option>
+            <option value="T.K.D. Silva">T.K.D. Silva</option>
+            <option value="L.D.Manoj">L.D.Manoj</option>
+            <option value="D.M. Palitha">D.M. Palitha</option>
+            <option value="R.S.D.Dias">R.S.D.Dias</option>
+            <option value="S.K.N.Sujatha">S.K.N.Sujatha</option>
+            <option value="C.P.H.Mala">C.P.H.Mala</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="orderDate">Order Date *</label>
+          <input type="date" id="orderDate" required>
+        </div>
+        <div class="form-group">
+          <label for="deliveryDate">Expected Delivery *</label>
+          <input type="date" id="deliveryDate" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="orderAmount">Total Amount (RS.) *</label>
+          <input type="number" id="orderAmount" min="0" step="0.01" placeholder="e.g. 2500.00" required>
+        </div>
+        <div class="form-group">
+          <label for="orderStatus">Status *</label>
+          <select id="orderStatus" required>
+            <option value="">Select status</option>
+            <option value="Pending">Pending</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Received">Received</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="orderNotes">Notes (optional)</label>
+        <textarea id="orderNotes" rows="2" placeholder="Any additional notes..."></textarea>
+      </div>
+
+      <input type="hidden" id="editOrderIndex" value="">
+
+      <div class="modal-actions">
+        <button type="button" class="btn-outline" id="cancelModalBtn">Cancel</button>
+        <button type="submit" class="btn-primary">
+          <i class="fa-solid fa-check"></i> Save Order
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script src="js/components.js"></script>
+<script src="js/purchases.js"></script>
+</body>
+</html>
