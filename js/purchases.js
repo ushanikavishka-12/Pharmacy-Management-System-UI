@@ -50,10 +50,29 @@ const orders = [
   }
 ];
 
+const suppliers = Array.from(new Set(orders.map(order => order.supplier)));
+
 const purchasesBody = document.getElementById('purchasesBody');
 const supplierFilter = document.getElementById('supplierFilter');
 const statusFilter = document.getElementById('statusFilter');
 const resultsText = document.getElementById('resultsText');
+const purchaseImportInput = document.getElementById('purchaseImportInput');
+const addSupplierModal = document.getElementById('addSupplierModal');
+const supplierForm = document.getElementById('supplierForm');
+const closeSupplierModalBtn = document.getElementById('closeSupplierModalBtn');
+const cancelSupplierModalBtn = document.getElementById('cancelSupplierModalBtn');
+const editSupplierIndex = document.getElementById('editSupplierIndex');
+
+const supplierIdField = document.getElementById('supplierId');
+const supplierNameField = document.getElementById('supplierName');
+const companyNameField = document.getElementById('companyName');
+const contactPersonField = document.getElementById('contactPerson');
+const supplierPhoneField = document.getElementById('supplierPhone');
+const supplierEmailField = document.getElementById('supplierEmail');
+const supplierAddressField = document.getElementById('supplierAddress');
+const supplierCategoryField = document.getElementById('supplierCategory');
+const paymentTermsField = document.getElementById('paymentTerms');
+const supplierNotesField = document.getElementById('supplierNotes');
 
 // ── Status badge class mapping ──
 function getStatusBadge(status) {
@@ -69,6 +88,194 @@ function getStatusBadge(status) {
 // ── Format currency ──
 function formatAmount(amount) {
   return 'RS. ' + amount.toFixed(2);
+}
+
+function openOrderPrintView(order) {
+  const printWindow = window.open('', '_blank', 'width=900,height=700');
+
+  if (!printWindow) {
+    alert('Please allow pop-ups to print the purchase order.');
+    return;
+  }
+
+  const printContent = `
+    <!doctype html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Print ${order.id}</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 32px;
+          color: #1f2937;
+        }
+        .sheet {
+          max-width: 760px;
+          margin: 0 auto;
+          border: 1px solid #d1d5db;
+          border-radius: 16px;
+          padding: 28px;
+        }
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 16px;
+          border-bottom: 2px solid #0f766e;
+          padding-bottom: 16px;
+          margin-bottom: 24px;
+        }
+        .brand {
+          margin: 0;
+          font-size: 24px;
+          color: #0f766e;
+        }
+        .subtle {
+          margin: 4px 0 0;
+          color: #6b7280;
+          font-size: 13px;
+        }
+        .badge {
+          display: inline-block;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: #e0f2fe;
+          color: #075985;
+          font-weight: 700;
+          font-size: 12px;
+        }
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px 24px;
+        }
+        .field {
+          padding: 12px 14px;
+          border: 1px solid #e5e7eb;
+          border-radius: 12px;
+          background: #fafafa;
+        }
+        .label {
+          display: block;
+          font-size: 12px;
+          font-weight: 700;
+          color: #6b7280;
+          margin-bottom: 6px;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+        .value {
+          font-size: 15px;
+          font-weight: 600;
+          color: #111827;
+          word-break: break-word;
+        }
+        .full {
+          grid-column: 1 / -1;
+        }
+        .amount {
+          font-size: 22px;
+          color: #0f766e;
+        }
+        .notes {
+          white-space: pre-wrap;
+          line-height: 1.5;
+        }
+        .footer {
+          margin-top: 24px;
+          padding-top: 16px;
+          border-top: 1px solid #e5e7eb;
+          font-size: 12px;
+          color: #6b7280;
+          text-align: center;
+        }
+        @media print {
+          body {
+            padding: 0;
+          }
+          .sheet {
+            border: none;
+            border-radius: 0;
+            padding: 0;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="sheet">
+        <div class="header">
+          <div>
+            <h1 class="brand">PharmaPlus</h1>
+            <p class="subtle">Purchase Order Printout</p>
+            <p class="subtle">Generated on ${new Date().toLocaleString()}</p>
+          </div>
+          <div class="badge">${order.status}</div>
+        </div>
+
+        <div class="grid">
+          <div class="field">
+            <span class="label">Order ID</span>
+            <div class="value">${order.id}</div>
+          </div>
+          <div class="field">
+            <span class="label">Supplier</span>
+            <div class="value">${order.supplier}</div>
+          </div>
+          <div class="field">
+            <span class="label">Order Date</span>
+            <div class="value">${order.orderDate}</div>
+          </div>
+          <div class="field">
+            <span class="label">Expected Delivery</span>
+            <div class="value">${order.delivery}</div>
+          </div>
+          <div class="field full">
+            <span class="label">Total Amount</span>
+            <div class="value amount">${formatAmount(order.amount)}</div>
+          </div>
+          <div class="field full">
+            <span class="label">Notes</span>
+            <div class="value notes">${order.notes || 'No notes provided.'}</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          This document was generated from the purchase management system.
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('load', function () {
+          window.print();
+          window.onafterprint = function () {
+            window.close();
+          };
+        });
+      <\/script>
+    </body>
+    </html>
+  `;
+
+  printWindow.document.open();
+  printWindow.document.write(printContent);
+  printWindow.document.close();
+}
+
+function generateNextSupplierId() {
+  return 'SUP ' + String(suppliers.length + 1).padStart(4, '0');
+}
+
+function renderSupplierOptions() {
+  const optionsHtml = ['<option value="">Select supplier</option>']
+    .concat(suppliers.map(name => `<option value="${name}">${name}</option>`))
+    .join('');
+
+  document.getElementById('orderSupplier').innerHTML = optionsHtml;
+  supplierFilter.innerHTML = ['<option value="">All Suppliers</option>']
+    .concat(suppliers.map(name => `<option value="${name}">${name}</option>`))
+    .join('');
 }
 
 // ── Render table rows ──
@@ -147,7 +354,7 @@ function attachActionListeners() {
     btn.addEventListener('click', () => {
       const i = btn.dataset.index;
       const o = orders[i];
-      alert(`Printing order ${o.id}...`);
+      openOrderPrintView(o);
     });
   });
 
@@ -205,6 +412,62 @@ function closeAllDropdowns() {
 }
 
 document.addEventListener('click', closeAllDropdowns);
+
+function openPurchaseImportPicker() {
+  if (!purchaseImportInput) return;
+  purchaseImportInput.value = '';
+  purchaseImportInput.click();
+}
+
+purchaseImportInput.addEventListener('change', () => {
+  const file = purchaseImportInput.files && purchaseImportInput.files[0];
+  if (!file) return;
+
+  alert(`Selected file: ${file.name}\nType: ${file.type || 'unknown'}`);
+});
+
+function openSupplierModal() {
+  supplierForm.reset();
+  supplierIdField.value = generateNextSupplierId();
+  editSupplierIndex.value = '';
+  addSupplierModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSupplierModal() {
+  addSupplierModal.classList.remove('show');
+  document.body.style.overflow = '';
+  supplierForm.reset();
+}
+
+closeSupplierModalBtn.addEventListener('click', closeSupplierModal);
+cancelSupplierModalBtn.addEventListener('click', closeSupplierModal);
+addSupplierModal.addEventListener('click', (e) => { if (e.target === addSupplierModal) closeSupplierModal(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && addSupplierModal.classList.contains('show')) closeSupplierModal();
+});
+
+supplierForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const supplierName = supplierNameField.value.trim();
+  const supplierPhone = supplierPhoneField.value.trim();
+  const supplierAddress = supplierAddressField.value.trim();
+
+  if (!supplierName || !supplierPhone || !supplierAddress) {
+    alert('Please fill in all required supplier fields.');
+    return;
+  }
+
+  if (!suppliers.includes(supplierName)) {
+    suppliers.push(supplierName);
+    suppliers.sort((left, right) => left.localeCompare(right));
+    renderSupplierOptions();
+  }
+
+  alert(`Supplier saved: ${supplierName}`);
+  closeSupplierModal();
+});
 
 // ── Filter logic ──
 function applyFilters() {
@@ -346,16 +609,17 @@ document.getElementById('qaNewOrder').addEventListener('click', () => {
 });
 
 document.getElementById('qaAddSupplier').addEventListener('click', () => {
-  alert('Add Supplier — open your Suppliers page or modal here.');
+  openSupplierModal();
 });
 
 document.getElementById('qaImport').addEventListener('click', () => {
-  alert('Import Purchase — open your import dialog here.');
+  openPurchaseImportPicker();
 });
 
 document.getElementById('importBtn').addEventListener('click', () => {
-  alert('Import — open your import dialog here.');
+  openPurchaseImportPicker();
 });
 
 // ── Initial render ──
+renderSupplierOptions();
 renderOrders(orders);
