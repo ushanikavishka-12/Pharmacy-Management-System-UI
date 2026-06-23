@@ -4,7 +4,7 @@ Frontend UI for the **PharmaPlus Pharmacy Management System**, designed and deve
 
 ## Project Overview
 
-This project focuses on building a modern, responsive, and user-friendly Pharmacy Management System interface. The system includes authentication pages, an admin dashboard, inventory management, POS & Billing, and Purchases modules. The UI was designed in Figma and developed using HTML, CSS, Bootstrap, and JavaScript.
+This project focuses on building a modern, responsive, and user-friendly Pharmacy Management System interface. The system includes authentication pages, an admin dashboard, inventory management, POS & Billing, purchases management, and suppliers management modules. The UI was designed in Figma and developed using HTML, CSS, Bootstrap, and JavaScript.
 
 ---
 
@@ -70,6 +70,17 @@ This project focuses on building a modern, responsive, and user-friendly Pharmac
 - Search and Filter Purchases
 - Purchase Analytics Overview
 
+### Suppliers Management
+
+- Supplier Directory
+- Supplier Profile Management
+- Contact Information Management
+- Supplier Search and Filtering
+- Supplier Performance Tracking
+- Supplier Status Monitoring
+- Purchase-Supplier Association
+- Supplier Analytics Overview
+
 ---
 
 ## Technologies Used
@@ -91,7 +102,7 @@ This project focuses on building a modern, responsive, and user-friendly Pharmac
 - Medicine & Inventory Management
 - POS & Billing Management
 - Purchases Management
-- Supplier Management
+- Suppliers Management
 - Customer Management
 - Prescription Management
 - Reports & Analytics
@@ -146,6 +157,7 @@ pharmacy-management-system/
 │   ├── login.js
 │   ├── pos&billing.js
 │   ├── purchases.js
+│   ├── suppliers.js
 │   └── signup.js
 │
 ├── styles/
@@ -155,6 +167,7 @@ pharmacy-management-system/
 │   ├── login.css
 │   ├── pos&billing.css
 │   ├── purchases.css
+│   ├── suppliers.css
 │   └── signup.css
 │
 ├── dashboard.html
@@ -162,6 +175,7 @@ pharmacy-management-system/
 ├── login.html
 ├── pos&billing.html
 ├── purchases.html
+├── suppliers.html
 ├── signup.html
 └── README.md
 ```
@@ -204,6 +218,8 @@ Website: https://egotechworld.com
 - ✅ POS & Billing Frontend Development Completed
 - ✅ Purchases UI Design Completed
 - ✅ Purchases Frontend Development Completed
+- ✅ Suppliers UI Design Completed
+- ✅ Suppliers Frontend Development Completed
 - ✅ Reusable Components (Sidebar, Topbar, Footer) Implemented
 
 ---
@@ -211,13 +227,13 @@ Website: https://egotechworld.com
 ## Future Enhancements
 
 - Medicine Management Module
-- Supplier Management Module
 - Customer Management Module
 - Prescription Management Module
 - Reports & Analytics Module
 - Backend Integration
 - Database Connectivity
 - Authentication & Authorization
+- Role-Based Access Control
 
 ---
 
