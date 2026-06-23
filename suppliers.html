@@ -12,6 +12,8 @@
 <body data-page="suppliers" data-title="Suppliers">
 <div class="app">
 
+  <input type="file" id="supplierImportInput" accept="image/*,application/pdf,.pdf" hidden>
+
   <div id="sidebar-placeholder"></div>
 
   <div class="main">
@@ -253,6 +255,40 @@
       <button class="btn-outline" id="closeViewBtn2">Close</button>
       <button class="btn-primary" id="editFromViewBtn">
         <i class="fa-solid fa-pen"></i> Edit
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Import Supplier File Modal -->
+<div class="modal-overlay" id="supplierImportModal">
+  <div class="modal-box import-modal-box">
+
+    <div class="modal-header">
+      <h3>Imported Supplier File</h3>
+      <button class="modal-close" id="closeSupplierImportModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="import-modal-body">
+      <div class="import-summary">
+        <div class="import-chip" id="supplierImportName">No file selected</div>
+        <p class="import-meta" id="supplierImportMeta">Choose an image or PDF to preview it here.</p>
+      </div>
+
+      <div class="import-preview" id="supplierImportPreview">
+        <div class="import-preview-empty">Select an image or PDF to preview it.</div>
+      </div>
+    </div>
+
+    <div class="modal-actions import-modal-actions">
+      <button type="button" class="btn-outline" id="changeSupplierImportFileBtn">
+        <i class="fa-solid fa-file-arrow-up"></i> Choose Another File
+      </button>
+      <button type="button" class="btn-primary" id="closeSupplierImportBtn">
+        <i class="fa-solid fa-check"></i> Done
       </button>
     </div>
 

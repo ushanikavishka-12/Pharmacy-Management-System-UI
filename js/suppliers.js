@@ -68,6 +68,15 @@ const searchInput    = document.getElementById('searchInput');
 const supplierFilter = document.getElementById('supplierFilter');
 const statusFilter   = document.getElementById('statusFilter');
 const resultsText    = document.getElementById('resultsText');
+const supplierImportInput = document.getElementById('supplierImportInput');
+const supplierImportModal = document.getElementById('supplierImportModal');
+const closeSupplierImportModalBtn = document.getElementById('closeSupplierImportModalBtn');
+const closeSupplierImportBtn = document.getElementById('closeSupplierImportBtn');
+const changeSupplierImportFileBtn = document.getElementById('changeSupplierImportFileBtn');
+const supplierImportName = document.getElementById('supplierImportName');
+const supplierImportMeta = document.getElementById('supplierImportMeta');
+const supplierImportPreview = document.getElementById('supplierImportPreview');
+let supplierImportObjectUrl = '';
 
 // ── Get initials for avatar ──
 function getInitials(name) {
@@ -77,6 +86,69 @@ function getInitials(name) {
 // ── Update KPI total ──
 function updateKPIs() {
   document.getElementById('kpiTotal').textContent = suppliers.length;
+}
+
+function resetSupplierImportPreview() {
+  if (supplierImportObjectUrl) {
+    URL.revokeObjectURL(supplierImportObjectUrl);
+    supplierImportObjectUrl = '';
+  }
+
+  if (supplierImportName) supplierImportName.textContent = 'No file selected';
+  if (supplierImportMeta) supplierImportMeta.textContent = 'Choose an image or PDF to preview it here.';
+  if (supplierImportPreview) {
+    supplierImportPreview.innerHTML = '<div class="import-preview-empty">Select an image or PDF to preview it.</div>';
+  }
+}
+
+function openSupplierImportModal() {
+  if (!supplierImportModal) return;
+  supplierImportModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSupplierImportModal() {
+  if (!supplierImportModal) return;
+  supplierImportModal.classList.remove('show');
+  document.body.style.overflow = '';
+  resetSupplierImportPreview();
+}
+
+function showSupplierImportPreview(file) {
+  if (!supplierImportPreview || !supplierImportName || !supplierImportMeta) return;
+
+  resetSupplierImportPreview();
+
+  supplierImportName.textContent = file.name;
+  supplierImportMeta.textContent = `${file.type || 'Unknown type'} • ${(file.size / 1024).toFixed(1)} KB`;
+
+  const objectUrl = URL.createObjectURL(file);
+  supplierImportObjectUrl = objectUrl;
+
+  if (file.type.startsWith('image/')) {
+    const image = document.createElement('img');
+    image.className = 'import-preview-media';
+    image.src = objectUrl;
+    image.alt = file.name;
+    supplierImportPreview.innerHTML = '';
+    supplierImportPreview.appendChild(image);
+    openSupplierImportModal();
+    return;
+  }
+
+  if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+    const frame = document.createElement('iframe');
+    frame.className = 'import-preview-frame';
+    frame.src = objectUrl;
+    frame.title = file.name;
+    supplierImportPreview.innerHTML = '';
+    supplierImportPreview.appendChild(frame);
+    openSupplierImportModal();
+    return;
+  }
+
+  supplierImportPreview.innerHTML = '<div class="import-preview-empty">This file type is not supported. Please choose an image or PDF.</div>';
+  openSupplierImportModal();
 }
 
 // ── Render table rows ──
@@ -280,7 +352,47 @@ supplierForm.addEventListener('submit', (e) => {
 });
 
 document.getElementById('importBtn').addEventListener('click', () => {
-  alert('Import — open your import dialog here.');
+  if (!supplierImportInput) return;
+  supplierImportInput.value = '';
+  supplierImportInput.click();
+});
+
+if (supplierImportInput) {
+  supplierImportInput.addEventListener('change', () => {
+    const file = supplierImportInput.files && supplierImportInput.files[0];
+    if (!file) return;
+
+    showSupplierImportPreview(file);
+  });
+}
+
+if (closeSupplierImportModalBtn) {
+  closeSupplierImportModalBtn.addEventListener('click', closeSupplierImportModal);
+}
+
+if (closeSupplierImportBtn) {
+  closeSupplierImportBtn.addEventListener('click', closeSupplierImportModal);
+}
+
+if (changeSupplierImportFileBtn) {
+  changeSupplierImportFileBtn.addEventListener('click', () => {
+    closeSupplierImportModal();
+    if (!supplierImportInput) return;
+    supplierImportInput.value = '';
+    supplierImportInput.click();
+  });
+}
+
+if (supplierImportModal) {
+  supplierImportModal.addEventListener('click', (e) => {
+    if (e.target === supplierImportModal) closeSupplierImportModal();
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && supplierImportModal && supplierImportModal.classList.contains('show')) {
+    closeSupplierImportModal();
+  }
 });
 
 /* ════════════════════════════
