@@ -57,6 +57,13 @@ const supplierFilter = document.getElementById('supplierFilter');
 const statusFilter = document.getElementById('statusFilter');
 const resultsText = document.getElementById('resultsText');
 const purchaseImportInput = document.getElementById('purchaseImportInput');
+const purchaseImportModal = document.getElementById('purchaseImportModal');
+const closePurchaseImportModalBtn = document.getElementById('closePurchaseImportModalBtn');
+const closePurchaseImportBtn = document.getElementById('closePurchaseImportBtn');
+const changeImportFileBtn = document.getElementById('changeImportFileBtn');
+const purchaseImportName = document.getElementById('purchaseImportName');
+const purchaseImportMeta = document.getElementById('purchaseImportMeta');
+const purchaseImportPreview = document.getElementById('purchaseImportPreview');
 const addSupplierModal = document.getElementById('addSupplierModal');
 const supplierForm = document.getElementById('supplierForm');
 const closeSupplierModalBtn = document.getElementById('closeSupplierModalBtn');
@@ -73,6 +80,7 @@ const supplierAddressField = document.getElementById('supplierAddress');
 const supplierCategoryField = document.getElementById('supplierCategory');
 const paymentTermsField = document.getElementById('paymentTerms');
 const supplierNotesField = document.getElementById('supplierNotes');
+let purchaseImportObjectUrl = '';
 
 // ── Status badge class mapping ──
 function getStatusBadge(status) {
@@ -413,6 +421,69 @@ function closeAllDropdowns() {
 
 document.addEventListener('click', closeAllDropdowns);
 
+function resetPurchaseImportPreview() {
+  if (purchaseImportObjectUrl) {
+    URL.revokeObjectURL(purchaseImportObjectUrl);
+    purchaseImportObjectUrl = '';
+  }
+
+  if (purchaseImportName) purchaseImportName.textContent = 'No file selected';
+  if (purchaseImportMeta) purchaseImportMeta.textContent = 'Choose an image or PDF to preview it here.';
+  if (purchaseImportPreview) {
+    purchaseImportPreview.innerHTML = '<div class="import-preview-empty">Select an image or PDF to preview it.</div>';
+  }
+}
+
+function openPurchaseImportModal() {
+  if (!purchaseImportModal) return;
+  purchaseImportModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePurchaseImportModal() {
+  if (!purchaseImportModal) return;
+  purchaseImportModal.classList.remove('show');
+  document.body.style.overflow = '';
+  resetPurchaseImportPreview();
+}
+
+function showPurchaseImportPreview(file) {
+  if (!purchaseImportPreview || !purchaseImportName || !purchaseImportMeta) return;
+
+  resetPurchaseImportPreview();
+
+  purchaseImportName.textContent = file.name;
+  purchaseImportMeta.textContent = `${file.type || 'Unknown type'} • ${(file.size / 1024).toFixed(1)} KB`;
+
+  const objectUrl = URL.createObjectURL(file);
+  purchaseImportObjectUrl = objectUrl;
+
+  if (file.type.startsWith('image/')) {
+    const image = document.createElement('img');
+    image.className = 'import-preview-media';
+    image.src = objectUrl;
+    image.alt = file.name;
+    purchaseImportPreview.innerHTML = '';
+    purchaseImportPreview.appendChild(image);
+    openPurchaseImportModal();
+    return;
+  }
+
+  if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+    const frame = document.createElement('iframe');
+    frame.className = 'import-preview-frame';
+    frame.src = objectUrl;
+    frame.title = file.name;
+    purchaseImportPreview.innerHTML = '';
+    purchaseImportPreview.appendChild(frame);
+    openPurchaseImportModal();
+    return;
+  }
+
+  purchaseImportPreview.innerHTML = '<div class="import-preview-empty">This file type is not supported. Please choose an image or PDF.</div>';
+  openPurchaseImportModal();
+}
+
 function openPurchaseImportPicker() {
   if (!purchaseImportInput) return;
   purchaseImportInput.value = '';
@@ -423,7 +494,34 @@ purchaseImportInput.addEventListener('change', () => {
   const file = purchaseImportInput.files && purchaseImportInput.files[0];
   if (!file) return;
 
-  alert(`Selected file: ${file.name}\nType: ${file.type || 'unknown'}`);
+  showPurchaseImportPreview(file);
+});
+
+if (closePurchaseImportModalBtn) {
+  closePurchaseImportModalBtn.addEventListener('click', closePurchaseImportModal);
+}
+
+if (closePurchaseImportBtn) {
+  closePurchaseImportBtn.addEventListener('click', closePurchaseImportModal);
+}
+
+if (changeImportFileBtn) {
+  changeImportFileBtn.addEventListener('click', () => {
+    closePurchaseImportModal();
+    openPurchaseImportPicker();
+  });
+}
+
+if (purchaseImportModal) {
+  purchaseImportModal.addEventListener('click', (e) => {
+    if (e.target === purchaseImportModal) closePurchaseImportModal();
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && purchaseImportModal && purchaseImportModal.classList.contains('show')) {
+    closePurchaseImportModal();
+  }
 });
 
 function openSupplierModal() {
