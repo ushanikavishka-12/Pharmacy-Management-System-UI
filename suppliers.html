@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Suppliers</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/suppliers.css">
+</head>
+
+<body data-page="suppliers" data-title="Suppliers">
+<div class="app">
+
+  <div id="sidebar-placeholder"></div>
+
+  <div class="main">
+
+    <div id="topbar-placeholder"></div>
+
+    <div class="page-content">
+
+      <p class="page-subtitle">Manage your suppliers and their information</p>
+
+      <!-- KPI Cards -->
+      <section class="kpi-row">
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Suppliers</p>
+            <h3 class="kpi-value" id="kpiTotal">12</h3>
+            <span class="kpi-change up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+            <span class="kpi-sub">Active Suppliers</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-navy">
+          <div class="kpi-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Orders</p>
+            <h3 class="kpi-value">24</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Purchases</p>
+            <h3 class="kpi-value">280,906</h3>
+            <span class="kpi-sub">To be Received</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-yellow">
+          <div class="kpi-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Due</p>
+            <h3 class="kpi-value">245,600</h3>
+            <span class="kpi-sub">Pending Payments</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Suppliers Table Card -->
+      <div class="card suppliers-card">
+
+        <div class="suppliers-card-header">
+          <h2>Suppliers List</h2>
+          <div class="header-actions">
+            <button class="btn-primary" id="newSupplierBtn">
+              <i class="fa-solid fa-plus"></i> New Supplier
+            </button>
+            <button class="btn-outline" id="importBtn">
+              <i class="fa-solid fa-upload"></i> Import
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-row">
+          <div class="search-box-sup">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput"
+              placeholder="Search suppliers...">
+          </div>
+
+          <select class="filter-select" id="supplierFilter">
+            <option value="">All Suppliers</option>
+            <option value="Hemas Pharmacy">Hemas Pharmacy</option>
+            <option value="Thusitha Pharmacy">Thusitha Pharmacy</option>
+            <option value="Opsara Pharmacy">Opsara Pharmacy</option>
+            <option value="Neeroga Pharmacy">Neeroga Pharmacy</option>
+            <option value="Lanka Medics">Lanka Medics</option>
+            <option value="HealthCare (Pvt) Lts">HealthCare (Pvt) Lts</option>
+          </select>
+
+          <select class="filter-select" id="statusFilter">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <button class="btn-outline filters-btn">
+            <i class="fa-solid fa-sliders"></i> Filters
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap">
+          <table class="sup-table">
+            <thead>
+              <tr>
+                <th>Supplier Name</th>
+                <th>Contact Person</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="suppliersBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-row">
+          <span class="results-text" id="resultsText">
+            Showing 1 to 6 results
+          </span>
+          <div class="pagination">
+            <button class="page-btn" id="prevPage">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn" id="nextPage">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+<!-- Add / Edit Supplier Modal -->
+<div class="modal-overlay" id="supplierModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New Supplier</h3>
+      <button class="modal-close" id="closeModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="supplierForm" class="modal-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="supName">Supplier Name *</label>
+          <input type="text" id="supName"
+            placeholder="e.g. Hemas Pharmacy" required>
+        </div>
+        <div class="form-group">
+          <label for="supContact">Contact Person *</label>
+          <input type="text" id="supContact"
+            placeholder="e.g. T.K.D. Silva" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="supPhone">Phone *</label>
+          <input type="tel" id="supPhone"
+            placeholder="e.g. 011 234 5763" required>
+        </div>
+        <div class="form-group">
+          <label for="supEmail">Email *</label>
+          <input type="email" id="supEmail"
+            placeholder="e.g. orders@hemas.lk" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="supCity">City *</label>
+          <input type="text" id="supCity"
+            placeholder="e.g. Colombo" required>
+        </div>
+        <div class="form-group">
+          <label for="supStatus">Status *</label>
+          <select id="supStatus" required>
+            <option value="">Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="supAddress">Address (optional)</label>
+        <textarea id="supAddress" rows="2"
+          placeholder="Full address..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="supNotes">Notes (optional)</label>
+        <textarea id="supNotes" rows="2"
+          placeholder="Any additional notes..."></textarea>
+      </div>
+
+      <input type="hidden" id="editSupIndex" value="">
+
+      <div class="modal-actions">
+        <button type="button" class="btn-outline"
+          id="cancelModalBtn">Cancel</button>
+        <button type="submit" class="btn-primary">
+          <i class="fa-solid fa-check"></i> Save Supplier
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- View Supplier Modal -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3>Supplier Details</h3>
+      <button class="modal-close" id="closeViewBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="view-body" id="viewBody">
+      <!-- injected by JS -->
+    </div>
+
+    <div class="modal-actions" style="padding:0 24px 24px;">
+      <button class="btn-outline" id="closeViewBtn2">Close</button>
+      <button class="btn-primary" id="editFromViewBtn">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/components.js"></script>
+<script src="js/suppliers.js"></script>
+</body>
+</html>
