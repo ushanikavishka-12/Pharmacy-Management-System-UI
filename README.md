@@ -4,7 +4,7 @@ Frontend UI for the **PharmaPlus Pharmacy Management System**, designed and deve
 
 ## Project Overview
 
-This project focuses on building a modern, responsive, and user-friendly Pharmacy Management System interface. The system includes authentication pages, an admin dashboard, inventory management, and POS & Billing modules. The UI was designed in Figma and developed using HTML, CSS, Bootstrap, and JavaScript.
+This project focuses on building a modern, responsive, and user-friendly Pharmacy Management System interface. The system includes authentication pages, an admin dashboard, inventory management, POS & Billing, and Purchases modules. The UI was designed in Figma and developed using HTML, CSS, Bootstrap, and JavaScript.
 
 ---
 
@@ -59,6 +59,17 @@ This project focuses on building a modern, responsive, and user-friendly Pharmac
 - Payment Method Selection
 - Invoice Generation UI
 
+### Purchases Management
+
+- Purchase Order Management
+- Supplier Information Management
+- Medicine Procurement Tracking
+- Purchase History Records
+- Order Status Monitoring
+- Purchase Summary Dashboard
+- Search and Filter Purchases
+- Purchase Analytics Overview
+
 ---
 
 ## Technologies Used
@@ -79,6 +90,7 @@ This project focuses on building a modern, responsive, and user-friendly Pharmac
 - Dashboard Management
 - Medicine & Inventory Management
 - POS & Billing Management
+- Purchases Management
 - Supplier Management
 - Customer Management
 - Prescription Management
@@ -133,6 +145,7 @@ pharmacy-management-system/
 │   ├── inventory.js
 │   ├── login.js
 │   ├── pos&billing.js
+│   ├── purchases.js
 │   └── signup.js
 │
 ├── styles/
@@ -141,12 +154,14 @@ pharmacy-management-system/
 │   ├── inventory.css
 │   ├── login.css
 │   ├── pos&billing.css
+│   ├── purchases.css
 │   └── signup.css
 │
 ├── dashboard.html
 ├── inventory.html
 ├── login.html
 ├── pos&billing.html
+├── purchases.html
 ├── signup.html
 └── README.md
 ```
@@ -187,6 +202,8 @@ Website: https://egotechworld.com
 - ✅ Inventory Frontend Development Completed
 - ✅ POS & Billing UI Design Completed
 - ✅ POS & Billing Frontend Development Completed
+- ✅ Purchases UI Design Completed
+- ✅ Purchases Frontend Development Completed
 - ✅ Reusable Components (Sidebar, Topbar, Footer) Implemented
 
 ---
