@@ -554,3 +554,99 @@
   .prescriptions-card-header { flex-wrap: wrap; gap: 12px; }
   .form-row { grid-template-columns: 1fr; }
 }
+
+/* ── Import Modal ── */
+.import-modal-box {
+  max-width: 760px;
+}
+
+.import-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.import-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.import-chip {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.import-meta {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.import-preview {
+  min-height: 320px;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  background: #fafafa;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.import-preview-empty {
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.import-preview-media,
+.import-preview-frame {
+  width: 100%;
+  height: 480px;
+  border: 0;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+}
+
+.import-modal-actions {
+  padding: 0 24px 24px;
+}
+
+@media (max-width: 768px) {
+  .import-modal-body {
+    padding: 20px;
+  }
+
+  .import-preview,
+  .import-preview-media,
+  .import-preview-frame {
+    min-height: 240px;
+    height: 320px;
+  }
+
+  .import-modal-actions {
+    padding: 0 20px 20px;
+    flex-direction: column;
+  }
+
+  .import-modal-actions .btn-outline,
+  .import-modal-actions .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}

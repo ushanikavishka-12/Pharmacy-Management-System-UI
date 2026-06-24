@@ -62,6 +62,17 @@ const searchInput       = document.getElementById('searchInput');
 const statusFilter      = document.getElementById('statusFilter');
 const doctorFilter      = document.getElementById('doctorFilter');
 const resultsText       = document.getElementById('resultsText');
+const importBtn         = document.getElementById('importBtn');
+const prescriptionImportInput = document.getElementById('prescriptionImportInput');
+const prescriptionImportModal = document.getElementById('prescriptionImportModal');
+const closePrescriptionImportModalBtn = document.getElementById('closePrescriptionImportModalBtn');
+const closePrescriptionImportBtn = document.getElementById('closePrescriptionImportBtn');
+const changePrescriptionImportFileBtn = document.getElementById('changePrescriptionImportFileBtn');
+const prescriptionImportName = document.getElementById('prescriptionImportName');
+const prescriptionImportMeta = document.getElementById('prescriptionImportMeta');
+const prescriptionImportPreview = document.getElementById('prescriptionImportPreview');
+
+let prescriptionImportObjectUrl = '';
 
 // ── Generate next ID ──
 function generateNextId() {
@@ -359,9 +370,108 @@ prescriptionForm.addEventListener('submit', (e) => {
   applyFilters();
 });
 
-document.getElementById('importBtn').addEventListener('click', () => {
-  alert('Import — open your import dialog here.');
-});
+if (importBtn) {
+  importBtn.addEventListener('click', openPrescriptionImportPicker);
+}
+
+function resetPrescriptionImportPreview() {
+  if (prescriptionImportObjectUrl) {
+    URL.revokeObjectURL(prescriptionImportObjectUrl);
+    prescriptionImportObjectUrl = '';
+  }
+
+  if (prescriptionImportName) prescriptionImportName.textContent = 'No file selected';
+  if (prescriptionImportMeta) prescriptionImportMeta.textContent = 'Choose an image or PDF to preview it here.';
+  if (prescriptionImportPreview) {
+    prescriptionImportPreview.innerHTML = '<div class="import-preview-empty">Select an image or PDF to preview it.</div>';
+  }
+}
+
+function openPrescriptionImportModal() {
+  if (!prescriptionImportModal) return;
+  prescriptionImportModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrescriptionImportModal() {
+  if (!prescriptionImportModal) return;
+  prescriptionImportModal.classList.remove('show');
+  document.body.style.overflow = '';
+  resetPrescriptionImportPreview();
+}
+
+function showPrescriptionImportPreview(file) {
+  if (!prescriptionImportPreview || !prescriptionImportName || !prescriptionImportMeta) return;
+
+  resetPrescriptionImportPreview();
+
+  prescriptionImportName.textContent = file.name;
+  prescriptionImportMeta.textContent = `${file.type || 'Unknown type'} • ${(file.size / 1024).toFixed(1)} KB`;
+
+  const objectUrl = URL.createObjectURL(file);
+  prescriptionImportObjectUrl = objectUrl;
+
+  if (file.type.startsWith('image/')) {
+    const image = document.createElement('img');
+    image.className = 'import-preview-media';
+    image.src = objectUrl;
+    image.alt = file.name;
+    prescriptionImportPreview.innerHTML = '';
+    prescriptionImportPreview.appendChild(image);
+    openPrescriptionImportModal();
+    return;
+  }
+
+  if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+    const frame = document.createElement('iframe');
+    frame.className = 'import-preview-frame';
+    frame.src = objectUrl;
+    frame.title = file.name;
+    prescriptionImportPreview.innerHTML = '';
+    prescriptionImportPreview.appendChild(frame);
+    openPrescriptionImportModal();
+    return;
+  }
+
+  prescriptionImportPreview.innerHTML = '<div class="import-preview-empty">This file type is not supported. Please choose an image or PDF.</div>';
+  openPrescriptionImportModal();
+}
+
+function openPrescriptionImportPicker() {
+  if (!prescriptionImportInput) return;
+  prescriptionImportInput.value = '';
+  prescriptionImportInput.click();
+}
+
+if (prescriptionImportInput) {
+  prescriptionImportInput.addEventListener('change', () => {
+    const file = prescriptionImportInput.files && prescriptionImportInput.files[0];
+    if (!file) return;
+
+    showPrescriptionImportPreview(file);
+  });
+}
+
+if (closePrescriptionImportModalBtn) {
+  closePrescriptionImportModalBtn.addEventListener('click', closePrescriptionImportModal);
+}
+
+if (closePrescriptionImportBtn) {
+  closePrescriptionImportBtn.addEventListener('click', closePrescriptionImportModal);
+}
+
+if (changePrescriptionImportFileBtn) {
+  changePrescriptionImportFileBtn.addEventListener('click', () => {
+    closePrescriptionImportModal();
+    openPrescriptionImportPicker();
+  });
+}
+
+if (prescriptionImportModal) {
+  prescriptionImportModal.addEventListener('click', (e) => {
+    if (e.target === prescriptionImportModal) closePrescriptionImportModal();
+  });
+}
 
 /* ════════════════════════════
    VIEW MODAL
