@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Customer Management</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/customers.css">
+</head>
+
+<body data-page="customers" data-title="Customer Management">
+<div class="app">
+
+  <div id="sidebar-placeholder"></div>
+
+  <div class="main">
+
+    <div id="topbar-placeholder"></div>
+
+    <div class="page-content">
+
+      <p class="page-subtitle">Manage your customers and their information</p>
+
+      <!-- KPI Cards -->
+      <section class="kpi-row">
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Customers</p>
+            <h3 class="kpi-value" id="kpiTotal">28</h3>
+            <span class="kpi-sub-green">All Customers</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-navy">
+          <div class="kpi-icon"><i class="fa-solid fa-user-plus"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">New Customers</p>
+            <h3 class="kpi-value">7</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Sales</p>
+            <h3 class="kpi-value">Rs. 520,390</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-yellow">
+          <div class="kpi-icon"><i class="fa-solid fa-repeat"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Repeat Customers</p>
+            <h3 class="kpi-value">15</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Customers Table Card -->
+      <div class="card customers-card">
+
+        <div class="customers-card-header">
+          <h2>Customers List</h2>
+          <div class="header-actions">
+            <button class="btn-primary" id="newCustomerBtn">
+              <i class="fa-solid fa-plus"></i> New Customer
+            </button>
+            <button class="btn-outline" id="importBtn">
+              <i class="fa-solid fa-upload"></i> Import
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-row">
+          <div class="search-box-cus">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput"
+              placeholder="Search Customers...">
+          </div>
+
+          <select class="filter-select" id="statusFilter">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <select class="filter-select" id="cityFilter">
+            <option value="">All Cities</option>
+            <option value="Colombo">Colombo</option>
+            <option value="Gampaha">Gampaha</option>
+            <option value="Kandy">Kandy</option>
+            <option value="Galle">Galle</option>
+          </select>
+
+          <button class="btn-outline filters-btn">
+            <i class="fa-solid fa-sliders"></i> Filters
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap">
+          <table class="cus-table">
+            <thead>
+              <tr>
+                <th>Customer Id</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Last Visit</th>
+                <th>Total Purchases</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="customersBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-row">
+          <span class="results-text" id="resultsText">
+            Showing 1 to 6 results
+          </span>
+          <div class="pagination">
+            <button class="page-btn" id="prevPage">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn" id="nextPage">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+<!-- Add / Edit Customer Modal -->
+<div class="modal-overlay" id="customerModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New Customer</h3>
+      <button class="modal-close" id="closeModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="customerForm" class="modal-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cusId">Customer ID</label>
+          <input type="text" id="cusId"
+            placeholder="Auto-generated" readonly>
+        </div>
+        <div class="form-group">
+          <label for="cusName">Full Name *</label>
+          <input type="text" id="cusName"
+            placeholder="e.g. M.J.I. Silva" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cusPhone">Phone *</label>
+          <input type="tel" id="cusPhone"
+            placeholder="e.g. 011 234 5763" required>
+        </div>
+        <div class="form-group">
+          <label for="cusEmail">Email *</label>
+          <input type="email" id="cusEmail"
+            placeholder="e.g. silva12@gmail.com" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cusCity">City *</label>
+          <select id="cusCity" required>
+            <option value="">Select city</option>
+            <option value="Colombo">Colombo</option>
+            <option value="Gampaha">Gampaha</option>
+            <option value="Kandy">Kandy</option>
+            <option value="Galle">Galle</option>
+            <option value="Matara">Matara</option>
+            <option value="Negombo">Negombo</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cusStatus">Status *</label>
+          <select id="cusStatus" required>
+            <option value="">Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cusLastVisit">Last Visit</label>
+          <input type="date" id="cusLastVisit">
+        </div>
+        <div class="form-group">
+          <label for="cusPurchases">Total Purchases (RS.)</label>
+          <input type="number" id="cusPurchases"
+            min="0" step="0.01" placeholder="e.g. 12500.00">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cusNotes">Notes (optional)</label>
+        <textarea id="cusNotes" rows="2"
+          placeholder="Any additional notes..."></textarea>
+      </div>
+
+      <input type="hidden" id="editCusIndex" value="">
+
+      <div class="modal-actions">
+        <button type="button" class="btn-outline"
+          id="cancelModalBtn">Cancel</button>
+        <button type="submit" class="btn-primary">
+          <i class="fa-solid fa-check"></i> Save Customer
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- View Customer Modal -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3>Customer Details</h3>
+      <button class="modal-close" id="closeViewBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="view-body" id="viewBody">
+      <!-- injected by JS -->
+    </div>
+
+    <div class="modal-footer-actions">
+      <button class="btn-outline" id="closeViewBtn2">Close</button>
+      <button class="btn-primary" id="editFromViewBtn">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/components.js"></script>
+<script src="js/customers.js"></script>
+</body>
+</html>
