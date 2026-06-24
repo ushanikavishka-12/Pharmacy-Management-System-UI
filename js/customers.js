@@ -210,6 +210,8 @@ const modalTitle     = document.getElementById('modalTitle');
 const closeModalBtn  = document.getElementById('closeModalBtn');
 const cancelModalBtn = document.getElementById('cancelModalBtn');
 const editCusIndex   = document.getElementById('editCusIndex');
+const importBtn      = document.getElementById('importBtn');
+const importFileInput = document.getElementById('importFileInput');
 
 // ── Convert display date (2026.06.20) ↔ input date (2026-06-20) ──
 function toInputDate(d) {
@@ -309,8 +311,25 @@ customerForm.addEventListener('submit', (e) => {
   applyFilters();
 });
 
-document.getElementById('importBtn').addEventListener('click', () => {
-  alert('Import — open your import dialog here.');
+importBtn.addEventListener('click', () => {
+  importFileInput.value = '';
+  importFileInput.click();
+});
+
+importFileInput.addEventListener('change', () => {
+  const file = importFileInput.files && importFileInput.files[0];
+
+  if (!file) return;
+
+  const isImage = file.type.startsWith('image/');
+  const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+
+  if (!isImage && !isPdf) {
+    alert('Please select an image or PDF file.');
+    return;
+  }
+
+  alert(`Selected ${isImage ? 'image' : 'PDF'}: ${file.name}`);
 });
 
 /* ════════════════════════════
