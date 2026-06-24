@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Prescriptions</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/prescriptions.css">
+</head>
+
+<body data-page="prescriptions" data-title="Prescriptions">
+<div class="app">
+
+  <div id="sidebar-placeholder"></div>
+
+  <div class="main">
+
+    <div id="topbar-placeholder"></div>
+
+    <div class="page-content">
+
+      <p class="page-subtitle">Manage and view all patient Prescriptions</p>
+
+      <!-- KPI Cards -->
+      <section class="kpi-row">
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon"><i class="fa-solid fa-file-prescription"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Total Prescriptions</p>
+            <h3 class="kpi-value" id="kpiTotal">154</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-navy">
+          <div class="kpi-icon"><i class="fa-solid fa-user-injured"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Unique Patients</p>
+            <h3 class="kpi-value">98</h3>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon"><i class="fa-solid fa-pills"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Dispensed</p>
+            <h3 class="kpi-value" id="kpiDispensed">125</h3>
+            <span class="kpi-change up">
+              <i class="fa-solid fa-arrow-up"></i> 12%
+            </span>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-yellow">
+          <div class="kpi-icon"><i class="fa-regular fa-clock"></i></div>
+          <div class="kpi-info">
+            <p class="kpi-label">Pending</p>
+            <h3 class="kpi-value" id="kpiPending">32</h3>
+            <span class="kpi-change down">
+              <i class="fa-solid fa-arrow-down"></i> 8%
+            </span>
+            <span class="kpi-sub">This Month</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Prescriptions Table Card -->
+      <div class="card prescriptions-card">
+
+        <div class="prescriptions-card-header">
+          <h2>Prescriptions List</h2>
+          <div class="header-actions">
+            <button class="btn-primary" id="newPrescriptionBtn">
+              <i class="fa-solid fa-plus"></i> New Prescription
+            </button>
+            <button class="btn-outline" id="importBtn">
+              <i class="fa-solid fa-upload"></i> Import
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-row">
+          <div class="search-box-pre">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput"
+              placeholder="Search Prescription...">
+          </div>
+
+          <select class="filter-select" id="statusFilter">
+            <option value="">All Status</option>
+            <option value="Dispensed">Dispensed</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <select class="filter-select" id="doctorFilter">
+            <option value="">All Doctors</option>
+            <option value="Dr K.P.Himash">Dr K.P.Himash</option>
+            <option value="Dr Y.L.Saman">Dr Y.L.Saman</option>
+            <option value="Dr N.M.Perera">Dr N.M.Perera</option>
+            <option value="Dr W.L.Nimal">Dr W.L.Nimal</option>
+            <option value="Dr P.W.Rudrigo">Dr P.W.Rudrigo</option>
+            <option value="Dr G.L.P.Fathima">Dr G.L.P.Fathima</option>
+          </select>
+
+          <button class="btn-outline filters-btn">
+            <i class="fa-solid fa-sliders"></i> Filters
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap">
+          <table class="pre-table">
+            <thead>
+              <tr>
+                <th>Prescription Id</th>
+                <th>Patient Name</th>
+                <th>Doctor Name</th>
+                <th>Date</th>
+                <th>Item</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="prescriptionsBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-row">
+          <span class="results-text" id="resultsText">
+            Showing 1 to 6 results
+          </span>
+          <div class="pagination">
+            <button class="page-btn" id="prevPage">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn" id="nextPage">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+<!-- Add / Edit Prescription Modal -->
+<div class="modal-overlay" id="prescriptionModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 id="modalTitle">New Prescription</h3>
+      <button class="modal-close" id="closeModalBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form id="prescriptionForm" class="modal-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="preId">Prescription ID</label>
+          <input type="text" id="preId"
+            placeholder="Auto-generated" readonly>
+        </div>
+        <div class="form-group">
+          <label for="prePatient">Patient Name *</label>
+          <input type="text" id="prePatient"
+            placeholder="e.g. M.J.I. Silva" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="preDoctor">Doctor Name *</label>
+          <select id="preDoctor" required>
+            <option value="">Select doctor</option>
+            <option value="Dr K.P.Himash">Dr K.P.Himash</option>
+            <option value="Dr Y.L.Saman">Dr Y.L.Saman</option>
+            <option value="Dr N.M.Perera">Dr N.M.Perera</option>
+            <option value="Dr W.L.Nimal">Dr W.L.Nimal</option>
+            <option value="Dr P.W.Rudrigo">Dr P.W.Rudrigo</option>
+            <option value="Dr G.L.P.Fathima">Dr G.L.P.Fathima</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="preDate">Date *</label>
+          <input type="date" id="preDate" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="preItem">Item / Location *</label>
+          <input type="text" id="preItem"
+            placeholder="e.g. Colombo" required>
+        </div>
+        <div class="form-group">
+          <label for="preStatus">Status *</label>
+          <select id="preStatus" required>
+            <option value="">Select status</option>
+            <option value="Dispensed">Dispensed</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="preNotes">Notes (optional)</label>
+        <textarea id="preNotes" rows="2"
+          placeholder="Any additional notes..."></textarea>
+      </div>
+
+      <input type="hidden" id="editPreIndex" value="">
+
+      <div class="modal-actions">
+        <button type="button" class="btn-outline"
+          id="cancelModalBtn">Cancel</button>
+        <button type="submit" class="btn-primary">
+          <i class="fa-solid fa-check"></i> Save Prescription
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- View Prescription Modal -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3>Prescription Details</h3>
+      <button class="modal-close" id="closeViewBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="view-body" id="viewBody">
+      <!-- injected by JS -->
+    </div>
+
+    <div class="modal-footer-actions">
+      <button class="btn-outline" id="closeViewBtn2">Close</button>
+      <button class="btn-primary" id="editFromViewBtn">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/components.js"></script>
+<script src="js/prescriptions.js"></script>
+</body>
+</html>
