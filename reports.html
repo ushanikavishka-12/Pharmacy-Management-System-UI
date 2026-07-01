@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaPlus - Reports</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/reports.css">
+</head>
+
+<body data-page="reports" data-title="Reports">
+<div class="app">
+
+  <div id="sidebar-placeholder"></div>
+
+  <div class="main">
+
+    <div id="topbar-placeholder"></div>
+
+    <div class="page-content">
+
+      <p class="page-subtitle">View and generate reports related to your pharmacy.</p>
+
+      <!-- Filters Bar -->
+      <div class="card filters-card">
+        <div class="filters-bar">
+
+          <div class="filter-group">
+            <label class="filter-label">Date Range</label>
+            <div class="date-range-box">
+              <i class="fa-regular fa-calendar"></i>
+              <span id="dateRangeText">01 Jun 2025 - 30 Jun 2025</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Report Type</label>
+            <select class="filter-select" id="reportTypeFilter">
+              <option value="">All Reports</option>
+              <option value="sales">Sales Report</option>
+              <option value="purchase">Purchase Report</option>
+              <option value="inventory">Inventory Report</option>
+              <option value="supplier">Supplier Report</option>
+              <option value="customer">Customer Report</option>
+              <option value="expiry">Expiry Report</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Quick Filter</label>
+            <select class="filter-select" id="quickFilter">
+              <option value="month">This Month</option>
+              <option value="week">This Week</option>
+              <option value="today">Today</option>
+              <option value="year">This Year</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+
+          <button class="btn-export" id="exportBtn">
+            <i class="fa-solid fa-download"></i> Export Report
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Report Cards Grid -->
+      <div class="reports-grid" id="reportsGrid">
+
+        <!-- Sales Report -->
+        <div class="report-card" data-type="sales">
+          <div class="report-icon-wrap icon-teal">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="report-info">
+            <h3 class="report-title">Sales Report</h3>
+            <p class="report-desc">
+              View details sales summary and total revenue information.
+            </p>
+            <button class="btn-view-report" data-type="sales">
+              View Report <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Purchase Report -->
+        <div class="report-card" data-type="purchase">
+          <div class="report-icon-wrap icon-blue">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <div class="report-info">
+            <h3 class="report-title">Purchase Report</h3>
+            <p class="report-desc">
+              View purchase orders and total purchase summary
+            </p>
+            <button class="btn-view-report" data-type="purchase">
+              View Report <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Inventory Report -->
+        <div class="report-card" data-type="inventory">
+          <div class="report-icon-wrap icon-purple">
+            <i class="fa-solid fa-cube"></i>
+          </div>
+          <div class="report-info">
+            <h3 class="report-title">Inventory Report</h3>
+            <p class="report-desc">
+              View stock levels, low stock and inventory summary
+            </p>
+            <button class="btn-view-report" data-type="inventory">
+              View Report <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Supplier Report -->
+        <div class="report-card" data-type="supplier">
+          <div class="report-icon-wrap icon-orange">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="report-info">
+            <h3 class="report-title">Supplier Report</h3>
+            <p class="report-desc">
+              View supplier wise purchase and payment details.
+            </p>
+            <button class="btn-view-report" data-type="supplier">
+              View Report <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Customer Report -->
+        <div class="report-card" data-type="customer">
+          <div class="report-icon-wrap icon-red">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="report-info">
+            <h3 class="report-title">Customer Report</h3>
+            <p class="report-desc">
+              View customer wise sales and transaction details.
+            </p>
+            <button class="btn-view-report" data-type="customer">
+              View Report <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Expiry Report -->
+        <div class="report-card" data-type="expiry">
+          <div class="report-icon-wrap icon-yellow">
+            <i class="fa-solid fa-file-lines"></i>
+          </div>
+          <div class="report-info">
+            <h3 class="report-title">Expiry Report</h3>
+            <p class="report-desc">
+              View medicines expiry list and upcoming expiry alerts
+            </p>
+            <button class="btn-view-report" data-type="expiry">
+              View Report <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+  </div>
+</div>
+
+<!-- Report Detail Modal -->
+<div class="modal-overlay" id="reportModal">
+  <div class="modal-box modal-large">
+
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-icon-wrap" id="modalIconWrap">
+          <i class="fa-solid fa-chart-line" id="modalIcon"></i>
+        </div>
+        <div>
+          <h3 id="modalTitle">Sales Report</h3>
+          <p class="modal-subtitle" id="modalSubtitle">
+            01 Jun 2025 - 30 Jun 2025
+          </p>
+        </div>
+      </div>
+      <div class="modal-header-right">
+        <button class="btn-outline btn-sm" id="printReportBtn">
+          <i class="fa-solid fa-print"></i> Print
+        </button>
+        <button class="btn-primary btn-sm" id="downloadReportBtn">
+          <i class="fa-solid fa-download"></i> Download
+        </button>
+        <button class="modal-close" id="closeModalBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Content (injected by JS) -->
+    <div class="modal-report-body" id="modalReportBody">
+    </div>
+
+  </div>
+</div>
+
+<script src="js/components.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>
