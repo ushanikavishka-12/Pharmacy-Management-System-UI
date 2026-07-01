@@ -42,7 +42,7 @@
 
 .filters-bar {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -59,7 +59,14 @@
   color: var(--text-muted);
 }
 
-.date-range-box {
+.date-range-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.date-range-field {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -69,17 +76,39 @@
   padding: 10px 14px;
   font-size: 13px;
   color: var(--text-dark);
-  cursor: pointer;
-  min-width: 220px;
+  min-width: 170px;
   transition: border-color .2s;
 }
 
-.date-range-box:hover { border-color: var(--green); }
+.date-range-field:hover,
+.date-range-field:focus-within { border-color: var(--green); }
 
-.date-range-box i { color: var(--text-muted); }
-.date-range-box i:last-child { margin-left: auto; }
+.date-range-field i { color: var(--text-muted); }
 
-.date-range-box span { flex: 1; }
+.date-range-field input {
+  border: none;
+  outline: none;
+  font: inherit;
+  color: var(--text-dark);
+  background: transparent;
+  min-width: 120px;
+}
+
+.date-range-field input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.date-range-separator {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.date-range-text {
+  font-size: 12px;
+  color: var(--text-muted);
+}
 
 .filter-select {
   border: 1px solid var(--border);
@@ -457,4 +486,6 @@
   .report-summary-row { grid-template-columns: 1fr 1fr; }
   .modal-header { flex-wrap: wrap; }
   .modal-header-right { flex-wrap: wrap; }
+  .date-range-picker { flex-direction: column; align-items: stretch; }
+  .date-range-separator { text-align: center; }
 }

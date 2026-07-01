@@ -133,6 +133,10 @@ const modalReportBody = document.getElementById('modalReportBody');
 const closeModalBtn   = document.getElementById('closeModalBtn');
 const printReportBtn  = document.getElementById('printReportBtn');
 const downloadReportBtn = document.getElementById('downloadReportBtn');
+const reportModalBox = modal.querySelector('.modal-box');
+const startDateInput = document.getElementById('startDate');
+const endDateInput = document.getElementById('endDate');
+const dateRangeText = document.getElementById('dateRangeText');
 
 let currentReportType = null;
 
@@ -143,7 +147,7 @@ function buildReportContent(type) {
 
   // Header
   modalTitle.textContent    = config.title;
-  modalSubtitle.textContent = document.getElementById('dateRangeText').textContent;
+  modalSubtitle.textContent = dateRangeText.textContent;
   modalIcon.className       = config.icon;
   modalIconWrap.style.background = config.color;
 
@@ -196,6 +200,140 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
+function formatDateForDisplay(dateValue) {
+  if (!dateValue) return '';
+  const date = new Date(`${dateValue}T00:00:00`);
+  return date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).replace(/ /g, ' ');
+}
+
+function syncDateRangeLabel() {
+  const startValue = startDateInput.value;
+  const endValue = endDateInput.value;
+
+  if (!startValue || !endValue) {
+    dateRangeText.textContent = 'Select a date range';
+    return;
+  }
+
+  let start = startValue;
+  let end = endValue;
+  if (start > end) {
+    [start, end] = [end, start];
+    startDateInput.value = start;
+    endDateInput.value = end;
+  }
+
+  dateRangeText.textContent = `${formatDateForDisplay(start)} - ${formatDateForDisplay(end)}`;
+}
+
+function setDateRange(startValue, endValue) {
+  if (startValue) startDateInput.value = startValue;
+  if (endValue) endDateInput.value = endValue;
+  syncDateRangeLabel();
+}
+
+function normalizeExportFormat(rawFormat) {
+  const format = (rawFormat || '').trim().toLowerCase();
+  if (format === 'photo' || format === 'png' || format === 'image') return 'png';
+  if (format === 'pdf') return 'pdf';
+  return null;
+}
+
+function askExportFormat() {
+  const choice = window.prompt('Type "photo" for PNG or "pdf" for PDF export.', 'pdf');
+  if (choice === null) return null;
+  return normalizeExportFormat(choice);
+}
+
+function downloadDataUrl(dataUrl, filename) {
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = filename;
+  link.click();
+}
+
+async function captureReport(type) {
+  buildReportContent(type);
+
+  const exportContainer = document.createElement('div');
+  exportContainer.style.position = 'fixed';
+  exportContainer.style.left = '-10000px';
+  exportContainer.style.top = '0';
+  exportContainer.style.background = '#fff';
+  exportContainer.style.pointerEvents = 'none';
+
+  const clone = reportModalBox.cloneNode(true);
+  const actionBar = clone.querySelector('.modal-header-right');
+  if (actionBar) actionBar.style.display = 'none';
+
+  exportContainer.appendChild(clone);
+  document.body.appendChild(exportContainer);
+
+  try {
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+
+    return await html2canvas(clone, {
+      backgroundColor: '#ffffff',
+      scale: 2,
+      useCORS: true,
+    });
+  } finally {
+    exportContainer.remove();
+  }
+}
+
+async function exportReport(type, format) {
+  if (!type) {
+    alert('Please select a specific Report Type from the filter to export.');
+    return;
+  }
+
+  if (typeof html2canvas !== 'function' || !window.jspdf || !window.jspdf.jsPDF) {
+    alert('Export is still loading. Please try again in a moment.');
+    return;
+  }
+
+  const normalizedFormat = normalizeExportFormat(format);
+  if (!normalizedFormat) return;
+
+  const canvas = await captureReport(type);
+  const fileBase = `${type}-report`;
+
+  if (normalizedFormat === 'png') {
+    downloadDataUrl(canvas.toDataURL('image/png'), `${fileBase}.png`);
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const margin = 20;
+  const imageWidth = pageWidth - margin * 2;
+  const imageHeight = (canvas.height * imageWidth) / canvas.width;
+  const imageData = canvas.toDataURL('image/png');
+
+  let remainingHeight = imageHeight;
+  let position = margin;
+
+  pdf.addImage(imageData, 'PNG', margin, position, imageWidth, imageHeight);
+  remainingHeight -= pageHeight - margin * 2;
+
+  while (remainingHeight > 0) {
+    position = remainingHeight - imageHeight + margin;
+    pdf.addPage();
+    pdf.addImage(imageData, 'PNG', margin, position, imageWidth, imageHeight);
+    remainingHeight -= pageHeight - margin * 2;
+  }
+
+  pdf.save(`${fileBase}.pdf`);
+}
+
 closeModalBtn.addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => {
   if (e.target === modal) closeModal();
@@ -210,23 +348,10 @@ printReportBtn.addEventListener('click', () => {
 });
 
 // ── Download ──
-downloadReportBtn.addEventListener('click', () => {
-  if (!currentReportType) return;
-  const config = reportConfig[currentReportType];
-
-  // Build CSV content
-  const headers = config.tableHeaders.join(',');
-  const rows = config.tableRows.map(r => r.join(',')).join('\n');
-  const csvContent = `${headers}\n${rows}`;
-
-  // Create download link
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url  = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href     = url;
-  link.download = `${currentReportType}-report.csv`;
-  link.click();
-  URL.revokeObjectURL(url);
+downloadReportBtn.addEventListener('click', async () => {
+  const format = askExportFormat();
+  if (!format) return;
+  await exportReport(currentReportType, format);
 });
 
 // ── Bind View Report buttons ──
@@ -249,45 +374,48 @@ document.getElementById('reportTypeFilter').addEventListener('change', (e) => {
   });
 });
 
+startDateInput.addEventListener('change', syncDateRangeLabel);
+endDateInput.addEventListener('change', syncDateRangeLabel);
+
+syncDateRangeLabel();
+
 // ── Export Button (same as download but prompts type) ──
-document.getElementById('exportBtn').addEventListener('click', () => {
-  const selected = document.getElementById('reportTypeFilter').value;
+document.getElementById('exportBtn').addEventListener('click', async () => {
+  const selected = currentReportType || document.getElementById('reportTypeFilter').value;
   if (!selected) {
     alert('Please select a specific Report Type from the filter to export.');
     return;
   }
-  openReportModal(selected);
+
+  const format = askExportFormat();
+  if (!format) return;
+
+  await exportReport(selected, format);
 });
 
 // ── Quick Filter updates date range label ──
 document.getElementById('quickFilter').addEventListener('change', (e) => {
   const today = new Date();
-  const fmt = (d) => d.toLocaleDateString('en-GB', {
-    day: '2-digit', month: 'short', year: 'numeric'
-  }).replace(/ /g, ' ');
-
-  let label = '';
   const val = e.target.value;
 
   if (val === 'today') {
-    label = fmt(today) + ' - ' + fmt(today);
+    const value = today.toISOString().slice(0, 10);
+    setDateRange(value, value);
   } else if (val === 'week') {
     const start = new Date(today);
     start.setDate(today.getDate() - today.getDay());
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
-    label = fmt(start) + ' - ' + fmt(end);
+    setDateRange(start.toISOString().slice(0, 10), end.toISOString().slice(0, 10));
   } else if (val === 'month') {
     const start = new Date(today.getFullYear(), today.getMonth(), 1);
     const end   = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    label = fmt(start) + ' - ' + fmt(end);
+    setDateRange(start.toISOString().slice(0, 10), end.toISOString().slice(0, 10));
   } else if (val === 'year') {
     const start = new Date(today.getFullYear(), 0, 1);
     const end   = new Date(today.getFullYear(), 11, 31);
-    label = fmt(start) + ' - ' + fmt(end);
+    setDateRange(start.toISOString().slice(0, 10), end.toISOString().slice(0, 10));
   } else {
-    label = '01 Jun 2025 - 30 Jun 2025';
+    setDateRange('2026-06-01', '2026-06-30');
   }
-
-  document.getElementById('dateRangeText').textContent = label;
 });
