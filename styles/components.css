@@ -16,6 +16,16 @@
   --shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
+body.dark-theme {
+  --bg: #0f172a;
+  --card-bg: #111827;
+  --text-dark: #e5e7eb;
+  --text-muted: #94a3b8;
+  --border: #243041;
+  --shadow: 0 12px 30px rgba(0,0,0,0.35);
+  color-scheme: dark;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -30,6 +40,29 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+}
+
+body.dark-theme .sidebar {
+  background: #08111f;
+}
+
+body.dark-theme .logo-title,
+body.dark-theme .logo-sub {
+  color: #f8fafc;
+}
+
+body.dark-theme .nav-item {
+  color: #cbd5e1;
+}
+
+body.dark-theme .nav-item:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+
+body.dark-theme .nav-item.active {
+  background: #0f766e;
+  color: #ecfeff;
 }
 
 /* ════════════════════════════
@@ -173,6 +206,10 @@ body {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
 }
+
+body.dark-theme .topbar {
+  background: var(--bg);
+}
 .topbar h1 {
   font-size: 26px;
   font-weight: 700;
@@ -190,6 +227,108 @@ body {
   border-radius: 30px;
   padding: 10px 18px;
   color: var(--text-muted);
+}
+
+body.dark-theme .search-box,
+body.dark-theme .icon-btn,
+body.dark-theme .admin-chip,
+body.dark-theme .card,
+body.dark-theme .modal-box,
+body.dark-theme .table-wrap,
+body.dark-theme .form-control,
+body.dark-theme .form-group select,
+body.dark-theme .btn-outline,
+body.dark-theme .btn-primary,
+body.dark-theme .btn-save,
+body.dark-theme .settings-menu,
+body.dark-theme .settings-panel,
+body.dark-theme .page-body,
+body.dark-theme .filters-card,
+body.dark-theme .report-card,
+body.dark-theme .summary-card,
+body.dark-theme .tab-content,
+body.dark-theme .right-panel,
+body.dark-theme .left-panel,
+body.dark-theme .navbar,
+body.dark-theme .card-wrap {
+  background: #111827;
+  border-color: var(--border);
+}
+
+body.dark-theme .footer {
+  background: #08111f;
+}
+
+body.dark-theme .footer-divider-v,
+body.dark-theme .footer-copy,
+body.dark-theme .footer-brand-desc,
+body.dark-theme .footer-links-col a,
+body.dark-theme .footer-follow,
+body.dark-theme .panel-subtitle,
+body.dark-theme .date-range-text,
+body.dark-theme .filter-label,
+body.dark-theme .page-subtitle,
+body.dark-theme .settings-menu h3,
+body.dark-theme .settings-panel h2,
+body.dark-theme .page-header p,
+body.dark-theme .right-panel .sub,
+body.dark-theme .left-content .tagline,
+body.dark-theme .feature-text .fdesc,
+body.dark-theme .brand-sub {
+  color: var(--text-muted);
+}
+
+body.dark-theme .topbar h1,
+body.dark-theme .settings-panel h2,
+body.dark-theme .settings-menu h3,
+body.dark-theme .page-header h1,
+body.dark-theme .right-panel h3,
+body.dark-theme .left-content h2,
+body.dark-theme .navbar-brand,
+body.dark-theme .footer-brand,
+body.dark-theme .logo-title,
+body.dark-theme .feature-text .ftitle,
+body.dark-theme .form-group label,
+body.dark-theme .theme-block > label,
+body.dark-theme .menu-item,
+body.dark-theme .report-title,
+body.dark-theme .report-table-title,
+body.dark-theme .summary-value,
+body.dark-theme .summary-label,
+body.dark-theme .report-table th,
+body.dark-theme .report-table td,
+body.dark-theme .btn-save,
+body.dark-theme .btn-primary,
+body.dark-theme .btn-outline,
+body.dark-theme .btn-google,
+body.dark-theme .nav-item.active,
+body.dark-theme .admin-chip,
+body.dark-theme .icon-btn,
+body.dark-theme .footer-brand-name {
+  color: var(--text-dark);
+}
+
+body.dark-theme .search-box input,
+body.dark-theme .form-control,
+body.dark-theme .form-group select,
+body.dark-theme .settings-menu,
+body.dark-theme .settings-panel,
+body.dark-theme .page-body,
+body.dark-theme .card-wrap,
+body.dark-theme .left-panel,
+body.dark-theme .right-panel,
+body.dark-theme .navbar,
+body.dark-theme .footer,
+body.dark-theme .topbar,
+body.dark-theme .modal-header,
+body.dark-theme .modal-report-body,
+body.dark-theme .report-table th {
+  color: var(--text-dark);
+}
+
+body.dark-theme .search-box input::placeholder,
+body.dark-theme .form-control::placeholder {
+  color: #64748b;
 }
 
 .search-box input {

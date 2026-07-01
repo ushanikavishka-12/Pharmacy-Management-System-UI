@@ -31,6 +31,13 @@ body {
 }
 .navbar-brand {
   display: flex; align-items: center; gap: 10px;
+body.dark-theme {
+  --pp-text: #e5e7eb;
+  --pp-muted: #94a3b8;
+  --pp-border: #243041;
+  --pp-bg: #0f172a;
+}
+
   font-weight: 700; font-size: 1.1rem;
   color: var(--pp-text); text-decoration: none;
 }

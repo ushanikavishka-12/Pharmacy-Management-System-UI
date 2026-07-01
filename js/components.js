@@ -131,6 +131,27 @@ const FOOTER_HTML = `
 </footer>
 `;
 
+const THEME_STORAGE_KEY = 'pharmaplus_theme';
+
+function getSavedTheme() {
+  return localStorage.getItem(THEME_STORAGE_KEY) || 'light';
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle('dark-theme', theme === 'dark');
+}
+
+function applySavedTheme() {
+  applyTheme(getSavedTheme());
+}
+
+window.PharmaPlusTheme = {
+  getSavedTheme,
+  applyTheme,
+  applySavedTheme,
+  storageKey: THEME_STORAGE_KEY,
+};
+
 // ── Set active nav item based on current page ──
 function setActiveNav() {
   const page = document.body.dataset.page;
@@ -163,6 +184,8 @@ function loadAllComponents() {
   setActiveNav();
   setPageTitle();
 }
+
+applySavedTheme();
 
 // Run on page load
 document.addEventListener('DOMContentLoaded', loadAllComponents);

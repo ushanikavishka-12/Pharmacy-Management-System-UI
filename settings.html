@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings - PharmaPlus Pharmacy</title>
+
+<!-- Shared styles (same as your other pages) -->
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/settings.css">
+
+<!-- Icon font (used across your other pages) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-page="settings" data-title="Settings">
+
+
+  <div class="app-layout">
+
+    <!-- Sidebar gets injected here by components.js, same as your other pages -->
+    <div id="sidebar-placeholder"></div>
+
+    <div class="main-content">
+
+      <!-- Topbar gets injected here by components.js, same as your other pages -->
+      <div id="topbar-placeholder"></div>
+
+      <div class="page-body">
+
+        <div class="page-header">
+          <p>Manage your system settings and preferences</p>
+        </div>
+
+        <div class="settings-layout">
+
+          <!-- LEFT: Settings Menu -->
+          <aside class="settings-menu">
+            <h3>Settings Menu</h3>
+            <ul id="settingsMenuList">
+              <li class="menu-item active" data-tab="general">
+                <i class="fa-solid fa-gear"></i> General Settings
+              </li>
+              <li class="menu-item" data-tab="business">
+                <i class="fa-solid fa-building"></i> Business Profile
+              </li>
+              <li class="menu-item" data-tab="users">
+                <i class="fa-solid fa-user-group"></i> User Management
+              </li>
+              <li class="menu-item" data-tab="notifications">
+                <i class="fa-solid fa-bell"></i> Notification Settings
+              </li>
+              <li class="menu-item" data-tab="payment">
+                <i class="fa-solid fa-credit-card"></i> Payment Settings
+              </li>
+              <li class="menu-item" data-tab="backup">
+                <i class="fa-solid fa-database"></i> Backup &amp; Restore
+              </li>
+              <li class="menu-item" data-tab="security">
+                <i class="fa-solid fa-shield-halved"></i> Security Settings
+              </li>
+            </ul>
+          </aside>
+
+          <!-- RIGHT: Settings Panels -->
+          <section class="settings-panel">
+
+            <!-- ===================== GENERAL SETTINGS ===================== -->
+            <div class="tab-content active" id="tab-general">
+              <h2>General Settings</h2>
+              <p class="panel-subtitle">Manage general settings</p>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>System Name</label>
+                  <input type="text" id="systemName" value="PhamaPlus Pharmacy">
+                </div>
+
+                <div class="form-group">
+                  <label>System Currency</label>
+                  <select id="systemCurrency">
+                    <option selected>LKR - Sri Lanka Rupee (Rs.)</option>
+                    <option>USD - US Dollar ($)</option>
+                    <option>INR - Indian Rupee (₹)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Date Format</label>
+                  <select id="dateFormat">
+                    <option selected>DD MMM YYYY (01 Jun 2026)</option>
+                    <option>MM/DD/YYYY (06/01/2026)</option>
+                    <option>DD/MM/YYYY (01/06/2026)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Time Format</label>
+                  <select id="timeFormat">
+                    <option selected>12 Hour (2:30 PM)</option>
+                    <option>24 Hour (14:30)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Language</label>
+                  <select id="systemLanguage">
+                    <option selected>English</option>
+                    <option>Sinhala</option>
+                    <option>Tamil</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>TimeZone</label>
+                  <select id="systemTimezone">
+                    <option selected>(GMT+5:30) Sri Jayawardenapura</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="theme-block">
+                <label>Theme Preference</label>
+                <p class="field-hint">Choose your preferred theme for the application</p>
+                <div class="radio-row">
+                  <label class="radio-option">
+                    <input type="radio" name="theme" value="light" checked>
+                    <span>Light</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="theme" value="dark">
+                    <span>Dark</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Items per page</label>
+                  <p class="field-hint">Select number of items to display per page</p>
+                  <select id="itemsPerPage">
+                    <option selected>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Default Dashboard</label>
+                  <p class="field-hint">Select default dashboard view</p>
+                  <select id="defaultDashboard">
+                    <option selected>Overview</option>
+                    <option>Sales</option>
+                    <option>Inventory</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <button class="btn-save" data-tab-save="general">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </div>
+
+            <!-- ===================== BUSINESS PROFILE ===================== -->
+            <div class="tab-content" id="tab-business">
+              <h2>Business Profile</h2>
+              <p class="panel-subtitle">Manage your pharmacy's business information</p>
+
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label>Business Name</label>
+                  <input type="text" id="businessName" value="PhamaPlus Pharmacy">
+                </div>
+
+                <div class="form-group full">
+                  <label>Address</label>
+                  <input type="text" id="businessAddress" placeholder="No, Street, City">
+                </div>
+
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="text" id="businessPhone" placeholder="+94 77 123 4567">
+                </div>
+
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" id="businessEmail" placeholder="info@pharmaplus.lk">
+                </div>
+
+                <div class="form-group">
+                  <label>Business Registration No.</label>
+                  <input type="text" id="businessRegNo" placeholder="PV 00000">
+                </div>
+
+                <div class="form-group">
+                  <label>Pharmacy License No.</label>
+                  <input type="text" id="businessLicenseNo" placeholder="License number">
+                </div>
+
+                <div class="form-group full">
+                  <label>Business Logo</label>
+                  <input type="file" id="businessLogo" accept="image/*">
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <button class="btn-save" data-tab-save="business">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </div>
+
+            <!-- ===================== USER MANAGEMENT ===================== -->
+            <div class="tab-content" id="tab-users">
+              <h2>User Management</h2>
+              <p class="panel-subtitle">Manage staff accounts, roles and permissions</p>
+
+              <div class="table-toolbar">
+                <button class="btn-add" id="addUserBtn">
+                  <i class="fa-solid fa-plus"></i> Add User
+                </button>
+              </div>
+
+              <div class="table-wrap">
+                <table class="settings-table" id="usersTable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Admin User</td>
+                      <td>admin@pharmaplus.lk</td>
+                      <td><span class="badge badge-purple">Administrator</span></td>
+                      <td><span class="badge badge-green">Active</span></td>
+                      <td>
+                        <button class="icon-btn"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn danger"><i class="fa-solid fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Nimal Perera</td>
+                      <td>nimal@pharmaplus.lk</td>
+                      <td><span class="badge badge-blue">Pharmacist</span></td>
+                      <td><span class="badge badge-green">Active</span></td>
+                      <td>
+                        <button class="icon-btn"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn danger"><i class="fa-solid fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Kavindi Silva</td>
+                      <td>kavindi@pharmaplus.lk</td>
+                      <td><span class="badge badge-gray">Cashier</span></td>
+                      <td><span class="badge badge-red">Inactive</span></td>
+                      <td>
+                        <button class="icon-btn"><i class="fa-solid fa-pen"></i></button>
+                        <button class="icon-btn danger"><i class="fa-solid fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- ===================== NOTIFICATION SETTINGS ===================== -->
+            <div class="tab-content" id="tab-notifications">
+              <h2>Notification Settings</h2>
+              <p class="panel-subtitle">Choose how you want to be notified</p>
+
+              <div class="toggle-list">
+                <div class="toggle-row">
+                  <div>
+                    <strong>Low Stock Alerts</strong>
+                    <p>Get notified when inventory falls below reorder level</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-row">
+                  <div>
+                    <strong>Expiry Alerts</strong>
+                    <p>Get notified when medicines are near expiry</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-row">
+                  <div>
+                    <strong>New Order Notifications</strong>
+                    <p>Get notified when a new purchase order is placed</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-row">
+                  <div>
+                    <strong>Email Notifications</strong>
+                    <p>Receive a copy of all alerts via email</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-row">
+                  <div>
+                    <strong>SMS Notifications</strong>
+                    <p>Receive critical alerts via SMS</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <button class="btn-save" data-tab-save="notifications">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </div>
+
+            <!-- ===================== PAYMENT SETTINGS ===================== -->
+            <div class="tab-content" id="tab-payment">
+              <h2>Payment Settings</h2>
+              <p class="panel-subtitle">Configure accepted payment methods and tax settings</p>
+
+              <div class="toggle-list">
+                <div class="toggle-row">
+                  <div><strong>Cash</strong><p>Accept cash payments at POS</p></div>
+                  <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+                <div class="toggle-row">
+                  <div><strong>Card Payments</strong><p>Accept debit/credit card payments</p></div>
+                  <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+                <div class="toggle-row">
+                  <div><strong>Mobile / QR Payments</strong><p>Accept mobile wallet or QR payments</p></div>
+                  <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Default Tax Rate (%)</label>
+                  <input type="number" id="taxRate" value="0" min="0" max="100">
+                </div>
+                <div class="form-group">
+                  <label>Invoice Prefix</label>
+                  <input type="text" id="invoicePrefix" value="INV-">
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <button class="btn-save" data-tab-save="payment">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </div>
+
+            <!-- ===================== BACKUP & RESTORE ===================== -->
+            <div class="tab-content" id="tab-backup">
+              <h2>Backup &amp; Restore</h2>
+              <p class="panel-subtitle">Protect your data with regular backups</p>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Automatic Backup</label>
+                  <select id="autoBackupFreq">
+                    <option>Off</option>
+                    <option selected>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Last Backup</label>
+                  <input type="text" value="01 Jun 2026, 2:30 PM" disabled>
+                </div>
+              </div>
+
+              <div class="backup-actions">
+                <button class="btn-outline"><i class="fa-solid fa-download"></i> Backup Now</button>
+                <button class="btn-outline"><i class="fa-solid fa-upload"></i> Restore from File</button>
+              </div>
+
+              <div class="panel-footer">
+                <button class="btn-save" data-tab-save="backup">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </div>
+
+            <!-- ===================== SECURITY SETTINGS ===================== -->
+            <div class="tab-content" id="tab-security">
+              <h2>Security Settings</h2>
+              <p class="panel-subtitle">Manage password policy and account security</p>
+
+              <div class="toggle-list">
+                <div class="toggle-row">
+                  <div><strong>Two-Factor Authentication</strong><p>Require a verification code at login</p></div>
+                  <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                </div>
+                <div class="toggle-row">
+                  <div><strong>Auto Logout</strong><p>Automatically log out inactive sessions</p></div>
+                  <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Session Timeout (minutes)</label>
+                  <input type="number" id="sessionTimeout" value="15" min="1">
+                </div>
+                <div class="form-group">
+                  <label>Minimum Password Length</label>
+                  <input type="number" id="minPasswordLength" value="8" min="6">
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <button class="btn-save" data-tab-save="security">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </div>
+
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast for save confirmation -->
+  <div class="toast" id="settingsToast">Changes saved successfully</div>
+
+  <!-- Shared component loader (same as your other pages) -->
+  <script src="js/components.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>

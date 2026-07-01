@@ -364,3 +364,58 @@ footer {
   .pills-img { width: 60%; height: 55%; }
   .right-panel { padding: 28px 24px 28px; }
 }
+
+body.dark-theme {
+  --pp-text: #e5e7eb;
+  --pp-muted: #94a3b8;
+  --pp-border: #243041;
+  --pp-bg: #0f172a;
+}
+
+body.dark-theme .navbar,
+body.dark-theme .card-wrap,
+body.dark-theme .right-panel,
+body.dark-theme .form-control,
+body.dark-theme .phone-group,
+body.dark-theme .btn-google,
+body.dark-theme .btn-login,
+body.dark-theme .btn-signup-nav {
+  background: #111827;
+  border-color: #243041;
+}
+
+body.dark-theme .left-panel {
+  background-color: #111827;
+}
+
+body.dark-theme .left-content h2,
+body.dark-theme .right-panel h3,
+body.dark-theme .form-group label,
+body.dark-theme .navbar-brand,
+body.dark-theme .btn-google,
+body.dark-theme .footer-brand,
+body.dark-theme .check-row label {
+  color: #e5e7eb;
+}
+
+body.dark-theme .left-content .tagline,
+body.dark-theme .feature-text .fdesc,
+body.dark-theme .brand-sub,
+body.dark-theme .right-panel .sub,
+body.dark-theme .login-link,
+body.dark-theme .footer-tag,
+body.dark-theme .footer-copy {
+  color: #94a3b8;
+}
+
+body.dark-theme .feature-icon {
+  background: rgba(15,23,42,0.9);
+}
+
+body.dark-theme .form-control::placeholder {
+  color: #64748b;
+}
+
+body.dark-theme footer {
+  background: #08111f;
+}

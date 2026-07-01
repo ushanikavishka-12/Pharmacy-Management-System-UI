@@ -1,4 +1,7 @@
 // ── Password toggle ──
+const savedTheme = localStorage.getItem('pharmaplus_theme') || 'light';
+document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+
 document.querySelectorAll('.pass-toggle').forEach(btn => {
   btn.addEventListener('click', () => {
     const inp  = document.getElementById(btn.dataset.target);
