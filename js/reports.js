@@ -243,10 +243,14 @@ function normalizeExportFormat(rawFormat) {
   return null;
 }
 
-function askExportFormat() {
-  const choice = window.prompt('Type "photo" for PNG or "pdf" for PDF export.', 'pdf');
-  if (choice === null) return null;
-  return normalizeExportFormat(choice);
+function getDateRangeFileSuffix() {
+  const value = dateRangeText.textContent.trim();
+  if (!value) return '';
+  return value
+    .replace(/\s+/g, '-')
+    .replace(/[^a-zA-Z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 function downloadDataUrl(dataUrl, filename) {
@@ -302,7 +306,8 @@ async function exportReport(type, format) {
   if (!normalizedFormat) return;
 
   const canvas = await captureReport(type);
-  const fileBase = `${type}-report`;
+  const dateSuffix = getDateRangeFileSuffix();
+  const fileBase = dateSuffix ? `${type}-report-${dateSuffix}` : `${type}-report`;
 
   if (normalizedFormat === 'png') {
     downloadDataUrl(canvas.toDataURL('image/png'), `${fileBase}.png`);
@@ -349,9 +354,7 @@ printReportBtn.addEventListener('click', () => {
 
 // ── Download ──
 downloadReportBtn.addEventListener('click', async () => {
-  const format = askExportFormat();
-  if (!format) return;
-  await exportReport(currentReportType, format);
+  await exportReport(currentReportType, 'pdf');
 });
 
 // ── Bind View Report buttons ──
@@ -387,10 +390,7 @@ document.getElementById('exportBtn').addEventListener('click', async () => {
     return;
   }
 
-  const format = askExportFormat();
-  if (!format) return;
-
-  await exportReport(selected, format);
+  await exportReport(selected, 'pdf');
 });
 
 // ── Quick Filter updates date range label ──
