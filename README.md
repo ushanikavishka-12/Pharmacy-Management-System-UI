@@ -4,7 +4,7 @@ Frontend UI for the **PharmaPlus Pharmacy Management System**, designed and deve
 
 ## Project Overview
 
-This project focuses on building a modern, responsive, and user-friendly Pharmacy Management System interface. The system includes authentication pages, an admin dashboard, inventory management, POS & Billing, purchases management, and suppliers management modules. The UI was designed in Figma and developed using HTML, CSS, Bootstrap, and JavaScript.
+This project focuses on building a modern, responsive, and user-friendly Pharmacy Management System interface. The system includes authentication pages, an admin dashboard, inventory management, POS & Billing, purchases management, suppliers management, customer management, prescription management, and reports modules. The UI was designed in Figma and developed using HTML, CSS, Bootstrap, and JavaScript.
 
 ---
 
@@ -81,6 +81,37 @@ This project focuses on building a modern, responsive, and user-friendly Pharmac
 - Purchase-Supplier Association
 - Supplier Analytics Overview
 
+### Customer Management
+
+- Customer Directory
+- Customer Registration
+- Customer Profile Management
+- Contact Information Management
+- Purchase History
+- Loyalty Program Tracking
+- Search and Filter Customers
+- Customer Analytics Overview
+
+### Prescription Management
+
+- Prescription Records
+- Patient Prescription Details
+- Medicine Prescription Information
+- Prescription Status Tracking
+- Search and Filter Prescriptions
+- Prescription History
+
+### Reports
+
+- Sales Reports Dashboard
+- Revenue Overview
+- Inventory Reports
+- Purchase Reports
+- Supplier Reports
+- Customer Reports
+- Search and Filter Reports
+- Export Reports UI
+
 ---
 
 ## Technologies Used
@@ -105,7 +136,7 @@ This project focuses on building a modern, responsive, and user-friendly Pharmac
 - Suppliers Management
 - Customer Management
 - Prescription Management
-- Reports & Analytics
+- Reports Management
 
 ### UI Features
 
@@ -152,31 +183,40 @@ pharmacy-management-system/
 │
 ├── js/
 │   ├── components.js
+│   ├── customers.js
 │   ├── dashboard.js
 │   ├── inventory.js
 │   ├── login.js
 │   ├── pos&billing.js
+│   ├── prescriptions.js
 │   ├── purchases.js
-│   ├── suppliers.js
-│   └── signup.js
+│   ├── reports.js
+│   ├── signup.js
+│   └── suppliers.js
 │
 ├── styles/
 │   ├── components.css
+│   ├── customers.css
 │   ├── dashboard.css
 │   ├── inventory.css
 │   ├── login.css
 │   ├── pos&billing.css
+│   ├── prescriptions.css
 │   ├── purchases.css
-│   ├── suppliers.css
-│   └── signup.css
+│   ├── reports.css
+│   ├── signup.css
+│   └── suppliers.css
 │
+├── customers.html
 ├── dashboard.html
 ├── inventory.html
 ├── login.html
 ├── pos&billing.html
+├── prescriptions.html
 ├── purchases.html
-├── suppliers.html
+├── reports.html
 ├── signup.html
+├── suppliers.html
 └── README.md
 ```
 
@@ -220,6 +260,12 @@ Website: https://egotechworld.com
 - ✅ Purchases Frontend Development Completed
 - ✅ Suppliers UI Design Completed
 - ✅ Suppliers Frontend Development Completed
+- ✅ Customer UI Design Completed
+- ✅ Customer Frontend Development Completed
+- ✅ Prescription UI Design Completed
+- ✅ Prescription Frontend Development Completed
+- ✅ Reports UI Design Completed
+- ✅ Reports Frontend Development Completed
 - ✅ Reusable Components (Sidebar, Topbar, Footer) Implemented
 
 ---
@@ -227,13 +273,13 @@ Website: https://egotechworld.com
 ## Future Enhancements
 
 - Medicine Management Module
-- Customer Management Module
-- Prescription Management Module
-- Reports & Analytics Module
 - Backend Integration
 - Database Connectivity
 - Authentication & Authorization
 - Role-Based Access Control
+- Export Reports (PDF & Excel)
+- Email Notifications
+- Real-Time Inventory Updates
 
 ---
 
