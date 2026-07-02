@@ -7,7 +7,7 @@
 :root {
   --green-dark:  #136F5E;
   --green-mid:   #136F5E;
-  --green-light: #136F5E;
+  --green-light: #e7f6ef;
   --white:       #ffffff;
   --bg:          #f4f6f8;
   --card-bg:     #ffffff;
@@ -21,7 +21,7 @@
 }
 
 body {
-  font-family: var(--font);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
