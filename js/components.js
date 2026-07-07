@@ -70,7 +70,7 @@ const FOOTER_HTML = `
   <div class="footer-content">
 
     <div class="footer-brand-col">
-      <div class="footer-brand-name">EgoTECH World</div>
+      <div class="footer-brand-name">EGOTECH WORLD</div>
       <p class="footer-brand-desc">Developing ready made and custom solutions for modern challenges.</p>
     </div>
 
@@ -126,7 +126,7 @@ const FOOTER_HTML = `
   </div>
 
   <div class="footer-bottom">
-    &copy; 2026 egotechworld.com &nbsp;&ndash;&nbsp; EGOTECHWORLD PVT LTD. All Rights Reserved.
+    &copy; 2026 egotechworld.com &nbsp;&ndash;&nbsp; EGOTECHWORLD PVT LTD | IT Solutions. All Rights Reserved.
   </div>
 </footer>
 `;
